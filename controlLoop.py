@@ -1,6 +1,5 @@
 import queue
 import storage
-from terminal import safeScroll
 
 def evaluate (term, cmd):
 
@@ -26,11 +25,16 @@ def evaluate (term, cmd):
 
 		storage.messagesOut.put("stop")
 
+		while True:
+
+			if not(storage.messagesOut.empty()):
+
+				break
+
 		return "end"
 
 	else:
 
 		term.addstr(f"Error: {cmd[0]} is not a valid option")
-		safeScroll(term)
 
 		return "err"

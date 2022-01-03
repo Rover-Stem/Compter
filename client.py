@@ -6,7 +6,7 @@ import threading
 
 class client ():
 
-	def __init__ (self, host = "raspberrypi.local", port = 29500, packetSize = 1024):
+	def __init__ (self, host = socket.gethostbyname("raspberrypi.local"), port = 29500, packetSize = 1024):
 
 		self.__host = host
 		self.__port = port
