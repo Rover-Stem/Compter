@@ -55,13 +55,33 @@ class client ():
 
 			if data:
 
-				storage.messagesIn.put(str(data, 'utf-8'))
+				if (str(data, 'utf-8') == "file"):
 
-				if (str(data, 'utf-8') == "stop"):
+					filename = str(conn.recv(self.__packetSize), 'utf-8')
 
-					self.cleanUp()
+					with open(f"./images/{filename}", "wb") as f:
 
-					break
+						while True:
+
+							bytes_read = client_socket.recv(self.__packetSize)
+
+							if not bytes_read:
+
+								break
+
+							f.write(bytes_read)
+
+					storage.messagesIn.put(f"S,File {filename} Recieved")
+
+				else:
+
+					storage.messagesIn.put(str(data, 'utf-8'))
+
+					if (str(data, 'utf-8') == "stop"):
+
+						self.cleanUp()
+
+						break
 
 		data = None
 

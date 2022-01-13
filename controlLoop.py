@@ -1,23 +1,51 @@
 import queue
 import storage
 
+def scrub (arr):
+
+	arr = list(filter(None, arr))
+
+	return arr
+
 def evaluate (term, cmd):
 
 	cmd = cmd.lower().split(" ")
 
 	if (cmd[0] == "run"):
 
-		args = ""
+		if (cmd[1] == "file"):
 
-		for i in cmd:
+			cmdSet = []
 
-			if (i == "run"):
+			with open(cmd[2], 'r') as f:
 
-				continue
+				cmdSet = f.read().split("\n")
 
-			args += "," + i
+			for i in range(0, len(cmdSet)):
 
-		storage.messagesOut.put(f"R{args}")
+				cmdSet[i] = cmdSet[i].split(" ")
+
+			cmdSet = scrub(cmdSet)
+
+			storage.messagesOut.put("F")
+
+			for i in cmdSet:
+
+				storage.messagesOut.put(i)
+
+		else:
+
+			args = ""
+
+			for i in cmd:
+
+				if (i == "run"):
+
+					continue
+
+				args += "," + i
+
+			storage.messagesOut.put(f"R{args}")
 
 		return "sent"
 
@@ -33,8 +61,22 @@ def evaluate (term, cmd):
 
 		return "end"
 
-	else:
+	elif (cmd[0] == "ls"):
 
-		term.addstr(f"Error: {cmd[0]} is not a valid option")
+		if (cmd[2] == "RPI"):
+
+			storage.messagesOut.put(f"L,{cmd[1]}")
+
+			return "sent"
+
+		return "ls"
+
+	elif (cmd[0] == "read"):
+
+		if (cmd[1] == "img"):
+
+			return "img"
+
+	else:
 
 		return "err"

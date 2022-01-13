@@ -1,16 +1,20 @@
 import os
+import cv2
 import queue
 import curses
 import storage
 import threading
 
-from client import client
+import numpy as np
+#from client import client
 from controlLoop import evaluate
 
-client = client()
+#client = client()
 
-tClient = threading.Thread(target = client.run, args = [], daemon = True)
-tClient.start()
+#tClient = threading.Thread(target = client.run, args = [], daemon = True)
+#tClient.start()
+
+os.system('cls' if os.name == 'nt' else 'clear')
 
 term = curses.initscr()
 curses.start_color()
@@ -43,195 +47,215 @@ def safeScroll ():
 		temp_cursor = term.getyx()
 		term.move(temp_cursor[0], 0)
 
-while True:
+def printStatusUpdate (statusUpdate):
 
-	if not(storage.messagesIn.empty()):
+	term.addstr(str(statusUpdate))
 
-		statusUpdate = storage.messagesIn.get().split(",")
+	safeScroll()
 
-		for i in range(0, len(statusUpdate)):
+	term.addstr("Motors: ")
 
-			statusUpdate[i] = statusUpdate[i].split(":")
+	if (statusUpdate[2][1]):
 
-		term.addstr("Motors: ")
+		if (curses.has_colors()):
 
-		if (bool(statusUpdate[2][1])):
+			if not(statusUpdate[2][2]):
 
-			if (curses.has_colors()):
-
-				if (bool(statusUpdate[2][2])):
-
-					term.addstr("Operational", curses.color_pair(1))
-
-				else:
-
-					term.addstr("Offline", curses.color_pair(2))
+				term.addstr("Operational", curses.color_pair(1))
 
 			else:
 
-				if (bool(statusUpdate[2][2])):
-
-					term.addstr("Operational")
-
-				else:
-
-					term.addstr("Offline")
+				term.addstr("Offline", curses.color_pair(2))
 
 		else:
 
-			if (curses.has_colors()):
+			if not(statusUpdate[2][2]):
 
-				term.addstr("Not Required Currently", curses.color_pair(3))
-
-			else:
-
-				term.addstr("Not Required Currently")
-
-		safeScroll()
-
-		term.addstr("Camera: ")
-
-		if (bool(statusUpdate[3][1])):
-
-			if (curses.has_colors()):
-
-				if (bool(statusUpdate[3][2])):
-
-					term.addstr("Operational", curses.color_pair(1))
-
-				else:
-
-					term.addstr("Offline", curses.color_pair(2))
+				term.addstr("Operational")
 
 			else:
 
-				if (bool(statusUpdate[3][2])):
+				term.addstr("Offline")
 
-					term.addstr("Operational")
+	else:
 
-				else:
+		if (curses.has_colors()):
 
-					term.addstr("Offline")
+			term.addstr("Not Required Currently", curses.color_pair(3))
 
 		else:
 
-			if (curses.has_colors()):
+			term.addstr("Not Required Currently")
 
-				term.addstr("Not Required Currently", curses.color_pair(3))
+	safeScroll()
 
-			else:
+	term.addstr("Camera: ")
 
-				term.addstr("Not Required Currently")
+	if (statusUpdate[3][1]):
 
-		safeScroll()
+		if (curses.has_colors()):
 
-		term.addstr("Magnetometer and Accelerometer: ")
+			if not(statusUpdate[3][2]):
 
-		if (bool(statusUpdate[4][1])):
-
-			if (curses.has_colors()):
-
-				if (bool(statusUpdate[4][2])):
-
-					term.addstr("Operational", curses.color_pair(1))
-
-				else:
-
-					term.addstr("Offline", curses.color_pair(2))
+				term.addstr("Operational", curses.color_pair(1))
 
 			else:
 
-				if (bool(statusUpdate[4][2])):
-
-					term.addstr("Operational")
-
-				else:
-
-					term.addstr("Offline")
+				term.addstr("Offline", curses.color_pair(2))
 
 		else:
 
-			if (curses.has_colors()):
+			if not(statusUpdate[3][2]):
 
-				term.addstr("Not Required Currently", curses.color_pair(3))
-
-			else:
-
-				term.addstr("Not Required Currently")
-
-		safeScroll()
-
-		term.addstr("Servo: ")
-
-		if (bool(statusUpdate[5][1])):
-
-			if (curses.has_colors()):
-
-				if (bool(statusUpdate[5][2])):
-
-					term.addstr("Operational", curses.color_pair(1))
-
-				else:
-
-					term.addstr("Offline", curses.color_pair(2))
+				term.addstr("Operational")
 
 			else:
 
-				if (bool(statusUpdate[5][2])):
+				term.addstr("Offline")
 
-					term.addstr("Operational")
+	else:
 
-				else:
+		if (curses.has_colors()):
 
-					term.addstr("Offline")
+			term.addstr("Not Required Currently", curses.color_pair(3))
 
 		else:
 
-			if (curses.has_colors()):
+			term.addstr("Not Required Currently")
 
-				term.addstr("Not Required Currently", curses.color_pair(3))
+	safeScroll()
 
-			else:
+	term.addstr("Magnetometer and Accelerometer: ")
 
-				term.addstr("Not Required Currently")
+	if (statusUpdate[4][1]):
 
-		safeScroll()
+		if (curses.has_colors()):
 
-		term.addstr("Ultrasonic Sensor: ")
+			if not(statusUpdate[4][2]):
 
-		if (bool(statusUpdate[6][1])):
-
-			if (curses.has_colors()):
-
-				if (bool(statusUpdate[6][2])):
-
-					term.addstr("Operational", curses.color_pair(1))
-
-				else:
-
-					term.addstr("Offline", curses.color_pair(2))
+				term.addstr("Operational", curses.color_pair(1))
 
 			else:
 
-				if (bool(statusUpdate[6][2])):
-
-					term.addstr("Operational")
-
-				else:
-
-					term.addstr("Offline")
+				term.addstr("Offline", curses.color_pair(2))
 
 		else:
 
-			if (curses.has_colors()):
+			if not(statusUpdate[4][2]):
 
-				term.addstr("Not Required Currently", curses.color_pair(3))
+				term.addstr("Operational")
 
 			else:
 
-				term.addstr("Not Required Currently")
+				term.addstr("Offline")
 
-		safeScroll()
+	else:
+
+		if (curses.has_colors()):
+
+			term.addstr("Not Required Currently", curses.color_pair(3))
+
+		else:
+
+			term.addstr("Not Required Currently")
+
+	safeScroll()
+
+	term.addstr("Servo: ")
+
+	if (statusUpdate[5][1]):
+
+		if (curses.has_colors()):
+
+			if not(statusUpdate[5][2]):
+
+				term.addstr("Operational", curses.color_pair(1))
+
+			else:
+
+				term.addstr("Offline", curses.color_pair(2))
+
+		else:
+
+			if not(statusUpdate[5][2]):
+
+				term.addstr("Operational")
+
+			else:
+
+				term.addstr("Offline")
+
+	else:
+
+		if (curses.has_colors()):
+
+			term.addstr("Not Required Currently", curses.color_pair(3))
+
+		else:
+
+			term.addstr("Not Required Currently")
+
+	safeScroll()
+
+	term.addstr("Ultrasonic Sensor: ")
+
+	if (statusUpdate[6][1]):
+
+		if (curses.has_colors()):
+
+			if not(statusUpdate[6][2]):
+
+				term.addstr("Operational", curses.color_pair(1))
+
+			else:
+
+				term.addstr("Offline", curses.color_pair(2))
+
+		else:
+
+			if not(statusUpdate[6][2]):
+
+				term.addstr("Operational")
+
+			else:
+
+				term.addstr("Offline")
+
+	else:
+
+		if (curses.has_colors()):
+
+			term.addstr("Not Required Currently", curses.color_pair(3))
+
+		else:
+
+			term.addstr("Not Required Currently")
+
+	safeScroll()
+
+#while True:
+
+#	if not(storage.messagesIn.empty()):
+
+#		statusUpdate = storage.messagesIn.get().split(",")
+
+#		for i in range(0, len(statusUpdate)):
+
+#			statusUpdate[i] = statusUpdate[i].split(":")
+
+#			for j in range(0, len(statusUpdate[i])):
+
+#				if (statusUpdate[i][j] == "True"):
+
+#					statusUpdate[i][j] = True
+
+#				elif (statusUpdate[i][j] == "False"):
+
+#					statusUpdate[i][j] = False
+
+#		printStatusUpdate(statusUpdate)
+
+#		break
 
 term.addstr("> ")
 
@@ -257,6 +281,112 @@ while True:
 			safeScroll()
 			term.addstr("> ")
 
+		elif (rsp == "ls"):
+
+			try:
+
+				input = cmd[entry]
+				command = input.split(" ")
+
+				programsList = []
+
+				for i in os.listdir(f"./{command[1]}"):
+
+					programsList.append(i + "")
+
+				programsList.sort()
+
+				for i in programsList:
+
+					term.addstr(f"{i}")
+					safeScroll()
+
+				term.addstr("> ")
+
+			except:
+
+				term.addstr("File Path Error")
+				safeScroll()
+				term.addstr("> ")
+
+		elif (rsp == "img"):
+
+			try:
+
+				input = cmd[entry]
+				command = input.split(" ")
+
+				img_orig = cv2.imread(f"./{command[2]}")
+
+				if (command[3] == "ASCII"):
+
+					min_size_x = 130
+					min_size_y = 130
+
+					x_or_y = True
+
+					gradient = ["█", "$", "@", "B", "%", "8", "&", "W", "M", "#", "*", "o", "a", "h", "k", "b", "d", "p", "q", "w", "m", "Z", "O", "0", "Q", "L", "C", "J", "U", "Y", "X", "z", "c", "v", "u", "n", "x", "r", "j", "f", "t", "/", "\\", "|", "(", ")", "1", "{", "}", "[", "]", "?", "-", "_", "+", "~", "<", ">", "i", "!", "l", "I", ";", ":", ",", "\"", "^", "`", "'", ".", " "]
+
+					img = cv2.cvtColor(img_orig, cv2.COLOR_BGR2GRAY)
+
+					if (img.shape[1] > img.shape[0]):
+
+						min_size = int(min_size_x / 2)
+						x_or_y = True
+
+					else:
+
+						min_size = int(min_size_x / 2)
+						x_or_y = False
+
+					if (x_or_y):
+
+						percent = min_size / img.shape[1]
+						new_size = (min_size, int(img.shape[0] * percent))
+
+					else:
+
+						percent = min_size / img.shape[0]
+						new_size = (int(img.shape[1] * percent), min_size)
+
+					img_orig = cv2.resize(img_orig, new_size)
+					img = cv2.resize(img, new_size)
+
+					img = img * (70 / 255)
+
+					final_ascii = [[]]
+
+					for i in range(0, img.shape[0]):
+
+						for j in range(0, img.shape[1]):
+
+							final_ascii[-1].append(gradient[70 - int(img[i][j])] + " ")
+
+						final_ascii.append([])
+
+					for i in range(0, len(final_ascii)):
+
+						for j in range(0, len(final_ascii[i])):
+
+							term.addstr(f"{final_ascii[i][j]}")
+
+						safeScroll()
+
+					term.addstr("> ")
+
+				elif (command[3] == "REAL"):
+
+					cv2.imshow('image',img_orig)
+					cv2.waitKey(0)
+					cv2.destroyAllWindows()
+					term.addstr("> ")
+
+			except:
+
+				term.addstr("File Path Error")
+				safeScroll()
+				term.addstr("> ")
+
 		else:
 
 			while True:
@@ -281,13 +411,13 @@ while True:
 
 						elif (msg[1] == "AD"):
 
-							term.addstr(f"Average Distance was {msg[2]} over {msg[3]} pings which were {msg[4]}sec apart")
+							term.addstr(f"Average Distance was {msg[2]} over {msg[3]} pings which were {msg[4]} sec apart")
 
 							safeScroll()
 
 						elif (msg[1] == "M"):
 
-							term.addstr(f"Magnetic Reading: {msg[2]}")
+							term.addstr(f"Magnetic Reading: {str(msg[2])}")
 
 							safeScroll()
 
@@ -303,184 +433,21 @@ while True:
 
 								msg[i] = msg[i].split(":")
 
-							term.addstr("Motors: ")
+								for j in range(0, len(msg[i])):
 
-							if (bool(msg[2][1])):
+									if (msg[i][j] == "True"):
 
-								if (curses.has_colors()):
+										msg[i][j] = True
 
-									if (bool(msg[2][2])):
+									elif (msg[i][j] == "False"):
 
-										term.addstr("Operational", curses.color_pair(1))
+										msg[i][j] = False
 
-									else:
+							printStatusUpdate(msg)
 
-										term.addstr("Offline", curses.color_pair(2))
+						elif (msg[1] == "L"):
 
-								else:
-
-									if (bool(msg[2][2])):
-
-										term.addstr("Operational")
-
-									else:
-
-										term.addstr("Offline")
-
-							else:
-
-								if (curses.has_colors()):
-
-									term.addstr("Not Required Currently", curses.color_pair(3))
-
-								else:
-
-									term.addstr("Not Required Currently")
-
-							safeScroll()
-
-							term.addstr("Camera: ")
-
-							if (bool(msg[3][1])):
-
-								if (curses.has_colors()):
-
-									if (bool(msg[3][2])):
-
-										term.addstr("Operational", curses.color_pair(1))
-
-									else:
-
-										term.addstr("Offline", curses.color_pair(2))
-
-								else:
-
-									if (bool(msg[3][2])):
-
-										term.addstr("Operational")
-
-									else:
-
-										term.addstr("Offline")
-
-							else:
-
-								if (curses.has_colors()):
-
-									term.addstr("Not Required Currently", curses.color_pair(3))
-
-								else:
-
-									term.addstr("Not Required Currently")
-
-							safeScroll()
-
-							term.addstr("Magnetometer and Accelerometer: ")
-
-							if (bool(msg[4][1])):
-
-								if (curses.has_colors()):
-
-									if (bool(msg[4][2])):
-
-										term.addstr("Operational", curses.color_pair(1))
-
-									else:
-
-										term.addstr("Offline", curses.color_pair(2))
-
-								else:
-
-									if (bool(msg[4][2])):
-
-										term.addstr("Operational")
-
-									else:
-
-										term.addstr("Offline")
-
-							else:
-
-								if (curses.has_colors()):
-
-									term.addstr("Not Required Currently", curses.color_pair(3))
-
-								else:
-
-									term.addstr("Not Required Currently")
-
-							safeScroll()
-
-							term.addstr("Servo: ")
-
-							if (bool(msg[5][1])):
-
-								if (curses.has_colors()):
-
-									if (bool(msg[5][2])):
-
-										term.addstr("Operational", curses.color_pair(1))
-
-									else:
-
-										term.addstr("Offline", curses.color_pair(2))
-
-								else:
-
-									if (bool(msg[5][2])):
-
-										term.addstr("Operational")
-
-									else:
-
-										term.addstr("Offline")
-
-							else:
-
-								if (curses.has_colors()):
-
-									term.addstr("Not Required Currently", curses.color_pair(3))
-
-								else:
-
-									term.addstr("Not Required Currently")
-
-							safeScroll()
-
-							term.addstr("Ultrasonic Sensor: ")
-
-							if (bool(msg[6][1])):
-
-								if (curses.has_colors()):
-
-									if (bool(msg[6][2])):
-
-										term.addstr("Operational", curses.color_pair(1))
-
-									else:
-
-										term.addstr("Offline", curses.color_pair(2))
-
-								else:
-
-									if (bool(msg[6][2])):
-
-										term.addstr("Operational")
-
-									else:
-
-										term.addstr("Offline")
-
-							else:
-
-								if (curses.has_colors()):
-
-									term.addstr("Not Required Currently", curses.color_pair(3))
-
-								else:
-
-									term.addstr("Not Required Currently")
-
+							term.addstr(f"{msg[2]}")
 							safeScroll()
 
 						else:
