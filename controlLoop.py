@@ -77,6 +77,10 @@ def evaluate (term, cmd):
 
 			return "img"
 
+	elif (cmd[0] == "h" or cmd[0] == "help"):
+
+		return "help"
+
 	else:
 
 		return "err"

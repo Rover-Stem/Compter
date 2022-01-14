@@ -281,6 +281,102 @@ while True:
 			safeScroll()
 			term.addstr("> ")
 
+		elif (rsp == "help"):
+
+			input = cmd[entry]
+			command = input.split(" ")
+
+			try:
+
+				if (command[1] == "list"):
+
+					term.addstr("List:")
+					safeScroll()
+					term.addstr("Usage: ls PATH")
+					safeScroll()
+
+					term.addstr("> ")
+
+				elif (command[1] == "read"):
+
+					term.addstr("Read:")
+					safeScroll()
+					term.addstr("Usage: read img PATH FORMAT")
+					safeScroll()
+
+					term.addstr(" ASCII: \"ascii\": Displays image in ASCII format")
+					safeScroll()
+					term.addstr(" REAL: \"real\": Displays image in seperate window that will close when q is pressed")
+					safeScroll()
+
+					term.addstr("> ")
+
+				elif (command[1] == "run"):
+
+					term.addstr("Run:")
+					safeScroll()
+					term.addstr("Usage: run OPTION [args]")
+					safeScroll()
+
+					term.addstr(" Move: \"m\": Moves rover in accordance with the movement option")
+					safeScroll()
+					term.addstr("  Usage: run m [MOVEMENT OPTION] [TIME] [RATIO] [THROTTLE]")
+					safeScroll()
+					term.addstr(" Move Distance: \"md\": Moves rover forwards for a certain distance")
+					safeScroll()
+					term.addstr("  Usage: run md [DISTANCE] [CM]")
+					safeScroll()
+					term.addstr(" Move Servo: \"ms\": Moves the servo to percent of range of motion")
+					safeScroll()
+					term.addstr("  Usage: run ms [ANGLE]")
+					safeScroll()
+					term.addstr(" Get Distance: \"gd\": Gets the distance from the ultra sonic servo")
+					safeScroll()
+					term.addstr("  Usage: run gd")
+					safeScroll()
+					term.addstr(" Get Average Distance: \"gad\": Gets the distance from the ultra sonic servo over multiple readings and averages them")
+					safeScroll()
+					term.addstr("  Usage: run gad [TIME BETWEEN PULSES] [NUMBER OF PULSES]")
+					safeScroll()
+					term.addstr(" Get Magnetometer: \"gm\": Gets the magnetometer reading")
+					safeScroll()
+					term.addstr("  Usage: run gm")
+					safeScroll()
+					term.addstr(" Get Acceleration: \"ga\": Gets the accelerometer reading")
+					safeScroll()
+					term.addstr("  Usage: run ga")
+					safeScroll()
+					term.addstr(" Take Picture: \"tp\": Takes picture and sends it to the host computer")
+					safeScroll()
+					term.addstr("  Usage: run tp")
+					safeScroll()
+
+					term.addstr("> ")
+
+				else:
+
+					term.addstr(f"{command[1].capitalize()} is not a valid help option")
+					safeScroll()
+					term.addstr("> ")
+
+			except:
+
+				term.addstr("(Note for more specific notes on commands enter help and then the command Ex. help run or help run m)")
+				safeScroll()
+				term.addstr(f"Options: ")
+				safeScroll()
+
+				term.addstr(" Exit: \"exit\": Quits the terminal and cuts the connection")
+				safeScroll()
+				term.addstr(" List: \"ls\": Lists files in directory either local or on the rover")
+				safeScroll()
+				term.addstr(" Read: \"read\": Used for reading images and displaying them in ASCII or as the standard image")
+				safeScroll()
+				term.addstr(" Run: \"run\": Runs command on the rover valid for all options but list")
+				safeScroll()
+
+				term.addstr("> ")
+
 		elif (rsp == "ls"):
 
 			try:
@@ -314,11 +410,11 @@ while True:
 			try:
 
 				input = cmd[entry]
-				command = input.split(" ")
+				command = input.lower().split(" ")
 
 				img_orig = cv2.imread(f"./{command[2]}")
 
-				if (command[3] == "ASCII"):
+				if (command[3] == "ascii"):
 
 					min_size_x = 130
 					min_size_y = 130
@@ -374,10 +470,10 @@ while True:
 
 					term.addstr("> ")
 
-				elif (command[3] == "REAL"):
+				elif (command[3] == "real"):
 
 					cv2.imshow('image',img_orig)
-					cv2.waitKey(0)
+					cv2.waitKey("q")
 					cv2.destroyAllWindows()
 					term.addstr("> ")
 
