@@ -9,7 +9,7 @@ def scrub (arr):
 
 def evaluate (term, cmd):
 
-	cmd = cmd.lower().split(" ")
+	cmd = scrub(cmd.lower().split(" "))
 
 	if (cmd[0] == "run"):
 
@@ -63,13 +63,25 @@ def evaluate (term, cmd):
 
 	elif (cmd[0] == "ls"):
 
-		if (cmd[2] == "RPI"):
+		try:
 
-			storage.messagesOut.put(f"L,{cmd[1]}")
+			if (cmd[2] == "rpi"):
 
-			return "sent"
+				storage.messagesOut.put(f"L,{cmd[1]}")
 
-		return "ls"
+				return "sent"
+
+			elif (cmd[2] == "loc"):
+
+				return "ls"
+
+			else:
+
+				return "err"
+
+		except:
+
+			return "err"
 
 	elif (cmd[0] == "read"):
 

@@ -6,20 +6,38 @@ import threading
 
 class client ():
 
-	def __init__ (self, host = socket.gethostbyname("raspberrypi.local"), port = 29500, packetSize = 1024):
+	def __init__ (self, testing, host, port, packetSize):
 
 		self.__host = host
 		self.__port = port
-		self.__packetSize = packetSize
-		self.__sockt = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+		self.__sockt = None
+		self.__testing = testing
 		self.__outgoing = queue.Queue(maxsize = 10)
 		self.__incoming = queue.Queue(maxsize = 50)
+		self.__packetSize = packetSize
+
+		if (testing):
+
+			self.__host = "127.0.0.1"
+
+		else:
+
+			while True:
+
+				try:
+
+					self.__host = socket.gethostbyname(host)
+
+				except:
+
+					pass
 
 		while True:
 
 			try:
 
-				self.__sockt.connect((host, port))
+				self.__sockt = socket.socket()
+				self.__sockt.connect((self.__host, self.__port))
 
 				print("Connected!") # Use as animation end trigger
 
@@ -31,7 +49,7 @@ class client ():
 
 	def cleanUp (self):
 
-		self.__sockt.shutdown(__sockt.SHUT_RDWR)
+		self.__sockt.shutdown(SHUT_RDWR)
 
 		self.__sockt.close()
 
@@ -83,9 +101,17 @@ class client ():
 
 						break
 
-		data = None
+			data = None
 
 	def sendMessages (self, conn):
+
+		if (self.__testing):
+
+			conn.send(bytes("T", 'utf-8'))
+
+		else:
+
+			conn.send(bytes("NT", 'utf-8'))
 
 		while (True):
 

@@ -1,35 +1,14 @@
 import os
 import cv2
+import sys
 import queue
 import curses
 import storage
 import threading
 
 import numpy as np
-#from client import client
+from client import client
 from controlLoop import evaluate
-
-#client = client()
-
-#tClient = threading.Thread(target = client.run, args = [], daemon = True)
-#tClient.start()
-
-os.system('cls' if os.name == 'nt' else 'clear')
-
-term = curses.initscr()
-curses.start_color()
-curses.noecho()
-
-curses.init_pair(1, curses.COLOR_GREEN, curses.COLOR_BLACK)
-curses.init_pair(2, curses.COLOR_RED, curses.COLOR_BLACK)
-curses.init_pair(3, curses.COLOR_WHITE, curses.COLOR_BLACK)
-
-term.refresh()
-
-cmd = [""]
-orig = None
-entry = -1
-character = -1
 
 def safeScroll ():
 
@@ -233,29 +212,82 @@ def printStatusUpdate (statusUpdate):
 
 	safeScroll()
 
-#while True:
+args = sys.argv[1:]
+testing = False
+hostIn = "raspberrypi.local"
+portIn = 29500
+packetSizeIn = 1024
 
-#	if not(storage.messagesIn.empty()):
+for i in args:
 
-#		statusUpdate = storage.messagesIn.get().split(",")
+	if (("-" in i) and ("t" in i)):
 
-#		for i in range(0, len(statusUpdate)):
+		testing = True
 
-#			statusUpdate[i] = statusUpdate[i].split(":")
+	if ("host" in i.lower()):
 
-#			for j in range(0, len(statusUpdate[i])):
+		hostIn = i.lower().replace(" ", "").split("=")[1]
 
-#				if (statusUpdate[i][j] == "True"):
+	if ("port" in i.lower()):
 
-#					statusUpdate[i][j] = True
+		portIn = i.lower().replace(" ", "").split("=")[1]
 
-#				elif (statusUpdate[i][j] == "False"):
+	if ("packet" in i.lower()):
 
-#					statusUpdate[i][j] = False
+		packetSizeIn = i.lower().replace(" ", "").split("=")[1]
 
-#		printStatusUpdate(statusUpdate)
+client = client(testing, hostIn, portIn, packetSizeIn)
 
-#		break
+tClient = threading.Thread(target = client.run, args = [], daemon = True)
+tClient.start()
+
+os.system('cls' if os.name == 'nt' else 'clear')
+
+term = curses.initscr()
+curses.start_color()
+curses.noecho()
+
+curses.init_pair(1, curses.COLOR_GREEN, curses.COLOR_BLACK)
+curses.init_pair(2, curses.COLOR_RED, curses.COLOR_BLACK)
+curses.init_pair(3, curses.COLOR_WHITE, curses.COLOR_BLACK)
+
+term.refresh()
+
+cmd = [""]
+orig = None
+entry = -1
+character = -1
+
+if (testing):
+
+	term.addstr("In Testing Mode", curses.color_pair(3))
+	safeScroll()
+
+else:
+
+	while True:
+
+		if not(storage.messagesIn.empty()):
+
+			statusUpdate = storage.messagesIn.get().split(",")
+
+			for i in range(0, len(statusUpdate)):
+
+				statusUpdate[i] = statusUpdate[i].split(":")
+
+				for j in range(0, len(statusUpdate[i])):
+
+					if (statusUpdate[i][j] == "True"):
+
+						statusUpdate[i][j] = True
+
+					elif (statusUpdate[i][j] == "False"):
+
+						statusUpdate[i][j] = False
+
+			printStatusUpdate(statusUpdate)
+
+			break
 
 term.addstr("> ")
 
@@ -277,7 +309,7 @@ while True:
 
 		elif (rsp == "err"):
 
-			term.addstr(f"Error not valid (Check to see if in testing mode): {cmd[entry]}")
+			term.addstr(f"Not valid: {cmd[entry]}")
 			safeScroll()
 			term.addstr("> ")
 
@@ -288,11 +320,11 @@ while True:
 
 			try:
 
-				if (command[1] == "list"):
+				if (command[1] == "ls"):
 
 					term.addstr("List:")
 					safeScroll()
-					term.addstr("Usage: ls PATH")
+					term.addstr("Usage: ls PATH [RPI or loc]")
 					safeScroll()
 
 					term.addstr("> ")
@@ -361,14 +393,14 @@ while True:
 
 			except:
 
-				term.addstr("(Note for more specific notes on commands enter help and then the command Ex. help run or help run m)")
+				term.addstr("(Note for more specific notes on commands enter help and then the command Ex. help run)")
 				safeScroll()
 				term.addstr(f"Options: ")
 				safeScroll()
 
 				term.addstr(" Exit: \"exit\": Quits the terminal and cuts the connection")
 				safeScroll()
-				term.addstr(" List: \"ls\": Lists files in directory either local or on the rover")
+				term.addstr(" List: \"ls\": Lists files in directory either localally or on the rover")
 				safeScroll()
 				term.addstr(" Read: \"read\": Used for reading images and displaying them in ASCII or as the standard image")
 				safeScroll()
@@ -486,6 +518,10 @@ while True:
 		else:
 
 			while True:
+
+				#term.addstr(f"Messages In: {storage.messagesIn}")
+
+				#safeScroll()
 
 				if not(storage.messagesIn.empty()):
 
