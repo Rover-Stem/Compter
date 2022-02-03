@@ -336,6 +336,8 @@ while True:
 					term.addstr("Usage: read img PATH FORMAT")
 					safeScroll()
 
+					term.addstr("Formats:")
+					safeScroll()
 					term.addstr(" ASCII: \"ascii\": Displays image in ASCII format")
 					safeScroll()
 					term.addstr(" REAL: \"real\": Displays image in seperate window that will close when q is pressed")
@@ -378,9 +380,108 @@ while True:
 					safeScroll()
 					term.addstr("  Usage: run ga")
 					safeScroll()
+					term.addstr(" Get Direction: \"gdir\": Gets the direction from the magnetometer in degrees")
+					safeScroll()
+					term.addstr("  Usage: run gdir")
+					safeScroll()
 					term.addstr(" Take Picture: \"tp\": Takes picture and sends it to the host computer")
 					safeScroll()
 					term.addstr("  Usage: run tp")
+					safeScroll()
+
+					term.addstr("> ")
+
+				elif (command[1] == "FORMAT"):
+
+					term.addstr("Formats:")
+					safeScroll()
+					term.addstr(" ASCII: \"ascii\": Displays image in ASCII format")
+					safeScroll()
+					term.addstr(" REAL: \"real\": Displays image in seperate window that will close when q is pressed")
+					safeScroll()
+
+					term.addstr("> ")
+
+				elif (command[1] == "ANGLE"):
+
+					term.addstr("Desired angle as a percent of the movement - Must be a number between -1 and 1 (Non-Inclusive)")
+					safeScroll()
+
+					term.addstr("> ")
+
+				elif (command[1] == "PATH"):
+
+					term.addstr("Path to desired file - Note: ./ is automatically added as a prefix")
+					safeScroll()
+
+					term.addstr("> ")
+
+				elif (command[1] == "DISTANCE"):
+
+					term.addstr("Distance in desired units (in or cm)")
+					safeScroll()
+
+					term.addstr("> ")
+
+				elif (command[1] == "CM"):
+
+					term.addstr("Set to True if distance is in centimeters")
+					safeScroll()
+
+					term.addstr("> ")
+
+				elif (command[1] == "MOVEMENT"):
+
+					term.addstr("Movement Options:")
+					safeScroll()
+					term.addstr(" f - Forwards")
+					safeScroll()
+					term.addstr(" b - Backwards")
+					safeScroll()
+					term.addstr(" r - Right")
+					safeScroll()
+					term.addstr(" l - Left")
+					safeScroll()
+					term.addstr(" dfr - Diagnonal Forwards Right")
+					safeScroll()
+					term.addstr(" dfl - Diagnonal Forwards Left")
+					safeScroll()
+					term.addstr(" dbr - Diagnonal Backwards Right")
+					safeScroll()
+					term.addstr(" dbl - Diagnonal Backwards Left")
+					safeScroll()
+					term.addstr(" cfr - Curve Forwards Right")
+					safeScroll()
+					term.addstr(" cfl - Curve Forwards Left")
+					safeScroll()
+					term.addstr(" cbr - Curve Backwards Right")
+					safeScroll()
+					term.addstr(" cbl - Curve Backwards Left")
+					safeScroll()
+					term.addstr(" rr - Rotate Right")
+					safeScroll()
+					term.addstr(" rl - Rotate Left")
+					safeScroll()
+
+					term.addstr("> ")
+
+				elif (command[1] == "TIME"):
+
+					term.addstr("Time in seconds")
+					safeScroll()
+
+					term.addstr("> ")
+
+				elif (command[1] == "RATIO"):
+
+					term.addstr("Ratio in decimal form from 1 to 0 inclusive")
+					safeScroll()
+
+					term.addstr("> ")
+
+				elif (command[1] == "THROTTLE"):
+
+					term.addstr("Percent of motor speed from 1 to 0 inclusive")
 					safeScroll()
 
 					term.addstr("> ")
@@ -393,7 +494,7 @@ while True:
 
 			except:
 
-				term.addstr("(Note for more specific notes on commands enter help and then the command Ex. help run)")
+				term.addstr("(Note for more specific notes on commands enter help and then the command or argument name Ex. help run or help PATH)")
 				safeScroll()
 				term.addstr(f"Options: ")
 				safeScroll()
@@ -541,6 +642,12 @@ while True:
 
 							safeScroll()
 
+						elif (msg[1] == "DIR"):
+
+							term.addstr(f"Direction: {msg[2]}°")
+
+							safeScroll()
+
 						elif (msg[1] == "AD"):
 
 							term.addstr(f"Average Distance was {msg[2]} over {msg[3]} pings which were {msg[4]} sec apart")
@@ -549,14 +656,30 @@ while True:
 
 						elif (msg[1] == "M"):
 
-							term.addstr(f"Magnetic Reading: {str(msg[2])}")
+							term.addstr(f"Magnetic Reading:")
+							safeScroll()
 
+							term.addstr(f" X: {str(msg[2])}")
+							safeScroll()
+
+							term.addstr(f" Y: {str(msg[3])}")
+							safeScroll()
+
+							term.addstr(f" Z: {str(msg[4])}")
 							safeScroll()
 
 						elif (msg[1] == "A"):
 
-							term.addstr(f"Acceleration: {msg[2]}")
+							term.addstr(f"Acceleration:")
+							safeScroll()
 
+							term.addstr(f" X: {str(msg[2])}")
+							safeScroll()
+
+							term.addstr(f" Y: {str(msg[3])}")
+							safeScroll()
+
+							term.addstr(f" Z: {str(msg[4])}")
 							safeScroll()
 
 						elif (msg[1] == "SU"):

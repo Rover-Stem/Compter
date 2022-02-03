@@ -11,88 +11,104 @@ def evaluate (term, cmd):
 
 	cmd = scrub(cmd.lower().split(" "))
 
-	if (cmd[0] == "run"):
+	try:
 
-		if (cmd[1] == "file"):
+		if (cmd[0] == "run"):
 
-			cmdSet = []
+			if (cmd[1] == "file"):
 
-			with open(cmd[2], 'r') as f:
+				if (cmd[2] == "l"):
 
-				cmdSet = f.read().split("\n")
+					storage.messagesOut.put("F,l")
 
-			for i in range(0, len(cmdSet)):
+				elif (cmd[2] == "s"):
 
-				cmdSet[i] = cmdSet[i].split(" ")
+					cmdSet = []
 
-			cmdSet = scrub(cmdSet)
+					with open(cmd[2], 'r') as f:
 
-			storage.messagesOut.put("F")
+						cmdSet = f.read().split("\n")
 
-			for i in cmdSet:
+					for i in range(0, len(cmdSet)):
 
-				storage.messagesOut.put(i)
+						cmdSet[i] = cmdSet[i].split(" ")
 
-		else:
+					cmdSet = scrub(cmdSet)
 
-			args = ""
+					storage.messagesOut.put("F,s")
 
-			for i in cmd:
+					for i in cmdSet:
 
-				if (i == "run"):
+						storage.messagesOut.put(i)
 
-					continue
+				else:
 
-				args += "," + i
-
-			storage.messagesOut.put(f"R{args}")
-
-		return "sent"
-
-	elif (cmd[0] == "exit"):
-
-		storage.messagesOut.put("stop")
-
-		while True:
-
-			if not(storage.messagesOut.empty()):
-
-				break
-
-		return "end"
-
-	elif (cmd[0] == "ls"):
-
-		try:
-
-			if (cmd[2] == "rpi"):
-
-				storage.messagesOut.put(f"L,{cmd[1]}")
-
-				return "sent"
-
-			elif (cmd[2] == "loc"):
-
-				return "ls"
+					storage.messagesOut.put(f"F,{cmd[2]}")
 
 			else:
 
+				args = ""
+
+				for i in cmd:
+
+					if (i == "run"):
+
+						continue
+
+					args += "," + i
+
+				storage.messagesOut.put(f"R{args}")
+
+			return "sent"
+
+		elif (cmd[0] == "exit"):
+
+			storage.messagesOut.put("stop")
+
+			while True:
+
+				if not(storage.messagesOut.empty()):
+
+					break
+
+			return "end"
+
+		elif (cmd[0] == "ls"):
+
+			try:
+
+				if (cmd[2] == "rpi"):
+
+					storage.messagesOut.put(f"L,{cmd[1]}")
+
+					return "sent"
+
+				elif (cmd[2] == "loc"):
+
+					return "ls"
+
+				else:
+
+					return "err"
+
+			except:
+
 				return "err"
 
-		except:
+		elif (cmd[0] == "read"):
+
+			if (cmd[1] == "img"):
+
+				return "img"
+
+		elif (cmd[0] == "h" or cmd[0] == "help"):
+
+			return "help"
+
+		else:
 
 			return "err"
 
-	elif (cmd[0] == "read"):
-
-		if (cmd[1] == "img"):
-
-			return "img"
-
-	elif (cmd[0] == "h" or cmd[0] == "help"):
-
-		return "help"
-
-	else:
+	except:
 
 		return "err"
