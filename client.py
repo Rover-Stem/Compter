@@ -1,8 +1,10 @@
 import time
 import queue
+import curses
 import socket
 import storage
 import threading
+import waitingTerminal
 
 class client ():
 
@@ -32,6 +34,9 @@ class client ():
 
 					pass
 
+		tWait = threading.Thread(target = waitingTerminal.run, args = [], daemon = True)
+		tWait.start()
+
 		while True:
 
 			try:
@@ -39,13 +44,17 @@ class client ():
 				self.__sockt = socket.socket()
 				self.__sockt.connect((self.__host, self.__port))
 
+				storage.connected = True
+
 				print("Connected!") # Use as animation end trigger
 
 				break
 
 			except:
 
-				pass
+				if (storage.exit):
+
+					break
 
 	def cleanUp (self):
 
@@ -93,6 +102,10 @@ class client ():
 
 				else:
 
+					with open("log.txt", 'a') as f:
+
+						f.write(f"Added {str(data, 'utf-8')} to incoming messags\n\n")
+
 					storage.messagesIn.put(str(data, 'utf-8'))
 
 					if (str(data, 'utf-8') == "stop"):
@@ -118,6 +131,10 @@ class client ():
 			if not(storage.messagesOut.empty()):
 
 				msg = bytes(storage.messagesOut.get(), 'utf-8')
+
+				with open("log.txt", 'a') as f:
+
+					f.write(f"Added {str(msg, 'utf-8')} to outgoing messags\n\n")
 
 				conn.send(msg)
 

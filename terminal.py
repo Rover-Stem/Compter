@@ -10,6 +10,60 @@ import numpy as np
 from client import client
 from controlLoop import evaluate
 
+# Sorts list by file type
+def sortByFileType (arr):
+
+	temp = [[[], "a"]]
+	temp2 = []
+
+	for i in arr:
+
+		if (i.split(".")[-1] in [x[1] for x in temp]):
+
+			for j in temp:
+
+				if ((i.split(".")[-1] == j[1]) and not(i.split(".")[0] == j[1])):
+
+					j[0].append(i)
+
+		else:
+
+			if (i.split(".")[0] == i.split(".")[-1]):
+
+				for j in temp:
+
+					if (j[1] == "a"):
+
+						j[0].append(i)
+
+			else:
+
+				temp.append([[i], i.split(".")[-1]])
+
+	for j in temp:
+
+		j[0].sort()
+
+	fileTypes = [x[1] for x in temp]
+
+	fileTypes.sort()
+
+	for i in fileTypes:
+
+		for j in temp:
+
+			if j[1] == i:
+
+				for l in j[0]:
+
+					temp2.append(l)
+
+				break
+
+		continue
+
+	return temp2
+
 def safeScroll ():
 
 	try:
@@ -26,13 +80,67 @@ def safeScroll ():
 		temp_cursor = term.getyx()
 		term.move(temp_cursor[0], 0)
 
+def safePrint (text, color = None):
+
+	rows, cols = term.getmaxyx()
+
+	if (len(text) > (cols - 2)):
+
+		if (color == None):
+
+			term.addstr(text[:(cols - 2)])
+			safeScroll()
+
+		else:
+
+			term.addstr(text[:(cols - 2)], color)
+			safeScroll()
+
+		i = 0
+
+		while True:
+
+			if ((len(text) - (cols * i) - (cols - 2)) > cols):
+
+				if (color == None):
+
+					term.addstr(text[((cols - 2) + (cols * i)):((cols - 2) + (cols * (i + 1)))])
+
+				else:
+
+					term.addstr(text[((cols - 2) + (cols * i)):((cols - 2) + (cols * (i + 1)))], color)
+
+				i += 1
+
+			else:
+
+				break
+
+		if (color == None):
+
+			term.addstr(text[((cols - 2) + (cols * i)):])
+
+		else:
+
+			term.addstr(text[((cols - 2) + (cols * i)):], color)
+
+	else:
+
+		if (color == None):
+
+			term.addstr(text)
+
+		else:
+
+			term.addstr(text, color)
+
 def printStatusUpdate (statusUpdate):
 
-	term.addstr(str(statusUpdate))
+	safePrint(str(statusUpdate))
 
 	safeScroll()
 
-	term.addstr("Motors: ")
+	safePrint("Motors: ")
 
 	if (statusUpdate[2][1]):
 
@@ -40,35 +148,35 @@ def printStatusUpdate (statusUpdate):
 
 			if not(statusUpdate[2][2]):
 
-				term.addstr("Operational", curses.color_pair(1))
+				safePrint("Operational", curses.color_pair(1))
 
 			else:
 
-				term.addstr("Offline", curses.color_pair(2))
+				safePrint("Offline", curses.color_pair(2))
 
 		else:
 
 			if not(statusUpdate[2][2]):
 
-				term.addstr("Operational")
+				safePrint("Operational")
 
 			else:
 
-				term.addstr("Offline")
+				safePrint("Offline")
 
 	else:
 
 		if (curses.has_colors()):
 
-			term.addstr("Not Required Currently", curses.color_pair(3))
+			safePrint("Not Required Currently", curses.color_pair(3))
 
 		else:
 
-			term.addstr("Not Required Currently")
+			safePrint("Not Required Currently")
 
 	safeScroll()
 
-	term.addstr("Camera: ")
+	safePrint("Camera: ")
 
 	if (statusUpdate[3][1]):
 
@@ -76,35 +184,35 @@ def printStatusUpdate (statusUpdate):
 
 			if not(statusUpdate[3][2]):
 
-				term.addstr("Operational", curses.color_pair(1))
+				safePrint("Operational", curses.color_pair(1))
 
 			else:
 
-				term.addstr("Offline", curses.color_pair(2))
+				safePrint("Offline", curses.color_pair(2))
 
 		else:
 
 			if not(statusUpdate[3][2]):
 
-				term.addstr("Operational")
+				safePrint("Operational")
 
 			else:
 
-				term.addstr("Offline")
+				safePrint("Offline")
 
 	else:
 
 		if (curses.has_colors()):
 
-			term.addstr("Not Required Currently", curses.color_pair(3))
+			safePrint("Not Required Currently", curses.color_pair(3))
 
 		else:
 
-			term.addstr("Not Required Currently")
+			safePrint("Not Required Currently")
 
 	safeScroll()
 
-	term.addstr("Magnetometer and Accelerometer: ")
+	safePrint("Magnetometer and Accelerometer: ")
 
 	if (statusUpdate[4][1]):
 
@@ -112,35 +220,35 @@ def printStatusUpdate (statusUpdate):
 
 			if not(statusUpdate[4][2]):
 
-				term.addstr("Operational", curses.color_pair(1))
+				safePrint("Operational", curses.color_pair(1))
 
 			else:
 
-				term.addstr("Offline", curses.color_pair(2))
+				safePrint("Offline", curses.color_pair(2))
 
 		else:
 
 			if not(statusUpdate[4][2]):
 
-				term.addstr("Operational")
+				safePrint("Operational")
 
 			else:
 
-				term.addstr("Offline")
+				safePrint("Offline")
 
 	else:
 
 		if (curses.has_colors()):
 
-			term.addstr("Not Required Currently", curses.color_pair(3))
+			safePrint("Not Required Currently", curses.color_pair(3))
 
 		else:
 
-			term.addstr("Not Required Currently")
+			safePrint("Not Required Currently")
 
 	safeScroll()
 
-	term.addstr("Servo: ")
+	safePrint("Servo: ")
 
 	if (statusUpdate[5][1]):
 
@@ -148,35 +256,35 @@ def printStatusUpdate (statusUpdate):
 
 			if not(statusUpdate[5][2]):
 
-				term.addstr("Operational", curses.color_pair(1))
+				safePrint("Operational", curses.color_pair(1))
 
 			else:
 
-				term.addstr("Offline", curses.color_pair(2))
+				safePrint("Offline", curses.color_pair(2))
 
 		else:
 
 			if not(statusUpdate[5][2]):
 
-				term.addstr("Operational")
+				safePrint("Operational")
 
 			else:
 
-				term.addstr("Offline")
+				safePrint("Offline")
 
 	else:
 
 		if (curses.has_colors()):
 
-			term.addstr("Not Required Currently", curses.color_pair(3))
+			safePrint("Not Required Currently", curses.color_pair(3))
 
 		else:
 
-			term.addstr("Not Required Currently")
+			safePrint("Not Required Currently")
 
 	safeScroll()
 
-	term.addstr("Ultrasonic Sensor: ")
+	safePrint("Ultrasonic Sensor: ")
 
 	if (statusUpdate[6][1]):
 
@@ -184,33 +292,37 @@ def printStatusUpdate (statusUpdate):
 
 			if not(statusUpdate[6][2]):
 
-				term.addstr("Operational", curses.color_pair(1))
+				safePrint("Operational", curses.color_pair(1))
 
 			else:
 
-				term.addstr("Offline", curses.color_pair(2))
+				safePrint("Offline", curses.color_pair(2))
 
 		else:
 
 			if not(statusUpdate[6][2]):
 
-				term.addstr("Operational")
+				safePrint("Operational")
 
 			else:
 
-				term.addstr("Offline")
+				safePrint("Offline")
 
 	else:
 
 		if (curses.has_colors()):
 
-			term.addstr("Not Required Currently", curses.color_pair(3))
+			safePrint("Not Required Currently", curses.color_pair(3))
 
 		else:
 
-			term.addstr("Not Required Currently")
+			safePrint("Not Required Currently")
 
 	safeScroll()
+
+#if os.geteuid() != 0:
+
+#    exit("You need to have root privileges to run this script.\nPlease try again, this time using 'sudo'.\nExiting.")
 
 args = sys.argv[1:]
 testing = False
@@ -236,10 +348,32 @@ for i in args:
 
 		packetSizeIn = i.lower().replace(" ", "").split("=")[1]
 
+with open("log.txt", 'a') as f:
+
+	f.write(f"Found args and starting client\n")
+
 client = client(testing, hostIn, portIn, packetSizeIn)
+
+if (storage.exit):
+
+	with open("log.txt", 'a') as f:
+
+		f.write(f"Exited in searching window\n")
+
+	os.system('cls' if os.name == 'nt' else 'clear')
+
+	sys.exit()
+
+with open("log.txt", 'a') as f:
+
+	f.write(f"Client Initiallized\n")
 
 tClient = threading.Thread(target = client.run, args = [], daemon = True)
 tClient.start()
+
+with open("log.txt", 'a') as f:
+
+	f.write(f"Client Running\n")
 
 os.system('cls' if os.name == 'nt' else 'clear')
 
@@ -255,12 +389,13 @@ term.refresh()
 
 cmd = [""]
 orig = None
+inputActive = False
 entry = -1
 character = -1
 
 if (testing):
 
-	term.addstr("In Testing Mode", curses.color_pair(3))
+	safePrint("In Testing Mode", curses.color_pair(1))
 	safeScroll()
 
 else:
@@ -289,7 +424,7 @@ else:
 
 			break
 
-term.addstr("> ")
+safePrint("> ")
 
 while True:
 
@@ -297,21 +432,40 @@ while True:
 
 	if (c == 10):
 
-		safeScroll()
+		with open("log.txt", 'a') as f:
+
+			f.write(f"Working with: {cmd[entry]}\n")
 
 		cursor = term.getyx()
 
 		rsp = evaluate(term, cmd[entry])
 
-		if (rsp == "end"):
+		safeScroll()
+
+		with open("log.txt", 'a') as f:
+
+			f.write(f"Responded with: {rsp}\n\n")
+
+		if (inputActive):
+
+			inputActive = False
+			storage.messagesOut.put(cmd[entry])
+			safePrint("> ")
+
+		elif (rsp == "end"):
 
 			break
 
 		elif (rsp == "err"):
 
-			term.addstr(f"Not valid: {cmd[entry]}")
+			safePrint(f"Not valid: {cmd[entry]}")
 			safeScroll()
-			term.addstr("> ")
+			safePrint("> ")
+
+		elif (rsp == "clr"):
+
+			term.clear()
+			safePrint("> ")
 
 		elif (rsp == "help"):
 
@@ -322,195 +476,199 @@ while True:
 
 				if (command[1] == "ls"):
 
-					term.addstr("List:")
+					safePrint("List:")
 					safeScroll()
-					term.addstr("Usage: ls PATH [RPI or loc]")
+					safePrint("Usage: ls PATH [RPI or loc]")
 					safeScroll()
 
-					term.addstr("> ")
+					safePrint("> ")
 
 				elif (command[1] == "read"):
 
-					term.addstr("Read:")
+					safePrint("Read:")
 					safeScroll()
-					term.addstr("Usage: read img PATH FORMAT")
-					safeScroll()
-
-					term.addstr("Formats:")
-					safeScroll()
-					term.addstr(" ASCII: \"ascii\": Displays image in ASCII format")
-					safeScroll()
-					term.addstr(" REAL: \"real\": Displays image in seperate window that will close when q is pressed")
+					safePrint("Usage: read img PATH FORMAT")
 					safeScroll()
 
-					term.addstr("> ")
+					safePrint("Formats:")
+					safeScroll()
+					safePrint(" ASCII: \"ascii\": Displays image in ASCII format")
+					safeScroll()
+					safePrint(" REAL: \"real\": Displays image in seperate window that will close when q is pressed")
+					safeScroll()
+
+					safePrint("> ")
 
 				elif (command[1] == "run"):
 
-					term.addstr("Run:")
+					safePrint("Run:")
 					safeScroll()
-					term.addstr("Usage: run OPTION [args]")
-					safeScroll()
-
-					term.addstr(" Move: \"m\": Moves rover in accordance with the movement option")
-					safeScroll()
-					term.addstr("  Usage: run m [MOVEMENT OPTION] [TIME] [RATIO] [THROTTLE]")
-					safeScroll()
-					term.addstr(" Move Distance: \"md\": Moves rover forwards for a certain distance")
-					safeScroll()
-					term.addstr("  Usage: run md [DISTANCE] [CM]")
-					safeScroll()
-					term.addstr(" Move Servo: \"ms\": Moves the servo to percent of range of motion")
-					safeScroll()
-					term.addstr("  Usage: run ms [ANGLE]")
-					safeScroll()
-					term.addstr(" Get Distance: \"gd\": Gets the distance from the ultra sonic servo")
-					safeScroll()
-					term.addstr("  Usage: run gd")
-					safeScroll()
-					term.addstr(" Get Average Distance: \"gad\": Gets the distance from the ultra sonic servo over multiple readings and averages them")
-					safeScroll()
-					term.addstr("  Usage: run gad [TIME BETWEEN PULSES] [NUMBER OF PULSES]")
-					safeScroll()
-					term.addstr(" Get Magnetometer: \"gm\": Gets the magnetometer reading")
-					safeScroll()
-					term.addstr("  Usage: run gm")
-					safeScroll()
-					term.addstr(" Get Acceleration: \"ga\": Gets the accelerometer reading")
-					safeScroll()
-					term.addstr("  Usage: run ga")
-					safeScroll()
-					term.addstr(" Get Direction: \"gdir\": Gets the direction from the magnetometer in degrees")
-					safeScroll()
-					term.addstr("  Usage: run gdir")
-					safeScroll()
-					term.addstr(" Take Picture: \"tp\": Takes picture and sends it to the host computer")
-					safeScroll()
-					term.addstr("  Usage: run tp")
+					safePrint("Usage: run OPTION [args]")
 					safeScroll()
 
-					term.addstr("> ")
+					safePrint(" Move: \"m\": Moves rover in accordance with the movement option")
+					safeScroll()
+					safePrint("  Usage: run m [MOVEMENT OPTION] [TIME] [RATIO] [THROTTLE]")
+					safeScroll()
+					safePrint(" Move Distance: \"md\": Moves rover forwards for a certain distance")
+					safeScroll()
+					safePrint("  Usage: run md [DISTANCE] [CM]")
+					safeScroll()
+					safePrint(" Move Servo: \"ms\": Moves the servo to percent of range of motion")
+					safeScroll()
+					safePrint("  Usage: run ms [ANGLE]")
+					safeScroll()
+					safePrint(" Get Distance: \"gd\": Gets the distance from the ultra sonic servo")
+					safeScroll()
+					safePrint("  Usage: run gd")
+					safeScroll()
+					safePrint(" Get Average Distance: \"gad\": Gets the distance from the ultra sonic servo over multiple readings and averages them")
+					safeScroll()
+					safePrint("  Usage: run gad [TIME BETWEEN PULSES] [NUMBER OF PULSES]")
+					safeScroll()
+					safePrint(" Get Magnetometer: \"gm\": Gets the magnetometer reading")
+					safeScroll()
+					safePrint("  Usage: run gm")
+					safeScroll()
+					safePrint(" Get Acceleration: \"ga\": Gets the accelerometer reading")
+					safeScroll()
+					safePrint("  Usage: run ga")
+					safeScroll()
+					safePrint(" Get Direction: \"gdir\": Gets the direction from the magnetometer in degrees")
+					safeScroll()
+					safePrint("  Usage: run gdir")
+					safeScroll()
+					safePrint(" Take Picture: \"tp\": Takes picture and sends it to the host computer")
+					safeScroll()
+					safePrint("  Usage: run tp")
+					safeScroll()
+
+					safePrint("> ")
 
 				elif (command[1] == "FORMAT"):
 
-					term.addstr("Formats:")
+					safePrint("Formats:")
 					safeScroll()
-					term.addstr(" ASCII: \"ascii\": Displays image in ASCII format")
+					safePrint(" ASCII: \"ascii\": Displays image in ASCII format")
 					safeScroll()
-					term.addstr(" REAL: \"real\": Displays image in seperate window that will close when q is pressed")
+					safePrint(" REAL: \"real\": Displays image in seperate window that will close when q is pressed")
 					safeScroll()
 
-					term.addstr("> ")
+					safePrint("> ")
 
 				elif (command[1] == "ANGLE"):
 
-					term.addstr("Desired angle as a percent of the movement - Must be a number between -1 and 1 (Non-Inclusive)")
+					safePrint("Desired angle as a percent of the movement - Must be a number between -1 and 1 (Non-Inclusive)")
 					safeScroll()
 
-					term.addstr("> ")
+					safePrint("> ")
 
 				elif (command[1] == "PATH"):
 
-					term.addstr("Path to desired file - Note: ./ is automatically added as a prefix")
+					safePrint("Path to desired file - Note: ./ is automatically added as a prefix")
 					safeScroll()
 
-					term.addstr("> ")
+					safePrint("> ")
 
 				elif (command[1] == "DISTANCE"):
 
-					term.addstr("Distance in desired units (in or cm)")
+					safePrint("Distance in desired units (in or cm)")
 					safeScroll()
 
-					term.addstr("> ")
+					safePrint("> ")
 
 				elif (command[1] == "CM"):
 
-					term.addstr("Set to True if distance is in centimeters")
+					safePrint("Set to True if distance is in centimeters")
 					safeScroll()
 
-					term.addstr("> ")
+					safePrint("> ")
 
 				elif (command[1] == "MOVEMENT"):
 
-					term.addstr("Movement Options:")
+					safePrint("Movement Options:")
 					safeScroll()
-					term.addstr(" f - Forwards")
+					safePrint(" f - Forwards")
 					safeScroll()
-					term.addstr(" b - Backwards")
+					safePrint(" b - Backwards")
 					safeScroll()
-					term.addstr(" r - Right")
+					safePrint(" r - Right")
 					safeScroll()
-					term.addstr(" l - Left")
+					safePrint(" l - Left")
 					safeScroll()
-					term.addstr(" dfr - Diagnonal Forwards Right")
+					safePrint(" dfr - Diagnonal Forwards Right")
 					safeScroll()
-					term.addstr(" dfl - Diagnonal Forwards Left")
+					safePrint(" dfl - Diagnonal Forwards Left")
 					safeScroll()
-					term.addstr(" dbr - Diagnonal Backwards Right")
+					safePrint(" dbr - Diagnonal Backwards Right")
 					safeScroll()
-					term.addstr(" dbl - Diagnonal Backwards Left")
+					safePrint(" dbl - Diagnonal Backwards Left")
 					safeScroll()
-					term.addstr(" cfr - Curve Forwards Right")
+					safePrint(" cfr - Curve Forwards Right")
 					safeScroll()
-					term.addstr(" cfl - Curve Forwards Left")
+					safePrint(" cfl - Curve Forwards Left")
 					safeScroll()
-					term.addstr(" cbr - Curve Backwards Right")
+					safePrint(" cbr - Curve Backwards Right")
 					safeScroll()
-					term.addstr(" cbl - Curve Backwards Left")
+					safePrint(" cbl - Curve Backwards Left")
 					safeScroll()
-					term.addstr(" rr - Rotate Right")
+					safePrint(" rr - Rotate Right")
 					safeScroll()
-					term.addstr(" rl - Rotate Left")
+					safePrint(" rl - Rotate Left")
 					safeScroll()
 
-					term.addstr("> ")
+					safePrint("> ")
 
 				elif (command[1] == "TIME"):
 
-					term.addstr("Time in seconds")
+					safePrint("Time in seconds")
 					safeScroll()
 
-					term.addstr("> ")
+					safePrint("> ")
 
 				elif (command[1] == "RATIO"):
 
-					term.addstr("Ratio in decimal form from 1 to 0 inclusive")
+					safePrint("Ratio in decimal form from 1 to 0 inclusive")
 					safeScroll()
 
-					term.addstr("> ")
+					safePrint("> ")
 
 				elif (command[1] == "THROTTLE"):
 
-					term.addstr("Percent of motor speed from 1 to 0 inclusive")
+					safePrint("Percent of motor speed from 1 to 0 inclusive")
 					safeScroll()
 
-					term.addstr("> ")
+					safePrint("> ")
 
 				else:
 
-					term.addstr(f"{command[1].capitalize()} is not a valid help option")
+					safePrint(f"{command[1].capitalize()} is not a valid help option")
 					safeScroll()
-					term.addstr("> ")
+					safePrint("> ")
 
 			except:
 
-				term.addstr("(Note for more specific notes on commands enter help and then the command or argument name Ex. help run or help PATH)")
+				safePrint("(Note for more specific notes on commands enter help and then the command or argument name Ex. help run or help PATH)")
 				safeScroll()
-				term.addstr(f"Options: ")
-				safeScroll()
-
-				term.addstr(" Exit: \"exit\": Quits the terminal and cuts the connection")
-				safeScroll()
-				term.addstr(" List: \"ls\": Lists files in directory either localally or on the rover")
-				safeScroll()
-				term.addstr(" Read: \"read\": Used for reading images and displaying them in ASCII or as the standard image")
-				safeScroll()
-				term.addstr(" Run: \"run\": Runs command on the rover valid for all options but list")
+				safePrint(f"Options: ")
 				safeScroll()
 
-				term.addstr("> ")
+				safePrint(" Exit: \"exit\": Quits the terminal and cuts the connection")
+				safeScroll()
+				safePrint(" List: \"ls\": Lists files in directory either locally or on the rover")
+				safeScroll()
+				safePrint(" Read: \"read\": Used for reading images and displaying them in ASCII or as the standard image")
+				safeScroll()
+				safePrint(" Run: \"run\": Runs command on the rover valid for all options but list")
+				safeScroll()
+				safePrint(" Clear: \"clear\": Clears terminal")
+				safeScroll()
+
+				safePrint("> ")
 
 		elif (rsp == "ls"):
+
+			safeScroll()
 
 			try:
 
@@ -523,20 +681,20 @@ while True:
 
 					programsList.append(i + "")
 
-				programsList.sort()
+				programsList = sortByFileType(programsList)
 
 				for i in programsList:
 
-					term.addstr(f"{i}")
+					safePrint(f"{i}")
 					safeScroll()
 
-				term.addstr("> ")
+				safePrint("> ")
 
 			except:
 
-				term.addstr("File Path Error")
+				safePrint("File Path Error")
 				safeScroll()
-				term.addstr("> ")
+				safePrint("> ")
 
 		elif (rsp == "img"):
 
@@ -597,30 +755,30 @@ while True:
 
 						for j in range(0, len(final_ascii[i])):
 
-							term.addstr(f"{final_ascii[i][j]}")
+							safePrint(f"{final_ascii[i][j]}")
 
 						safeScroll()
 
-					term.addstr("> ")
+					safePrint("> ")
 
 				elif (command[3] == "real"):
 
 					cv2.imshow('image',img_orig)
 					cv2.waitKey("q")
 					cv2.destroyAllWindows()
-					term.addstr("> ")
+					safePrint("> ")
 
 			except:
 
-				term.addstr("File Path Error")
+				safePrint("File Path Error")
 				safeScroll()
-				term.addstr("> ")
+				safePrint("> ")
 
 		else:
 
 			while True:
 
-				#term.addstr(f"Messages In: {storage.messagesIn}")
+				#safePrint(f"Messages In: {storage.messagesIn}")
 
 				#safeScroll()
 
@@ -630,7 +788,14 @@ while True:
 
 					if (msg[0] == "F"):
 
-						term.addstr("> ")
+						safePrint("> ")
+
+						break
+
+					elif (msg[0] == "I"):
+
+						safePrint(msg[1])
+						inputActive = True
 
 						break
 
@@ -638,48 +803,48 @@ while True:
 
 						if (msg[1] == "D"):
 
-							term.addstr(f"Distance: {msg[2]}")
+							safePrint(f"Distance: {msg[2]}")
 
 							safeScroll()
 
 						elif (msg[1] == "DIR"):
 
-							term.addstr(f"Direction: {msg[2]}°")
+							safePrint(f"Direction: {msg[2]}°")
 
 							safeScroll()
 
 						elif (msg[1] == "AD"):
 
-							term.addstr(f"Average Distance was {msg[2]} over {msg[3]} pings which were {msg[4]} sec apart")
+							safePrint(f"Average Distance was {msg[2]} over {msg[3]} pings which were {msg[4]} sec apart")
 
 							safeScroll()
 
 						elif (msg[1] == "M"):
 
-							term.addstr(f"Magnetic Reading:")
+							safePrint(f"Magnetic Reading:")
 							safeScroll()
 
-							term.addstr(f" X: {str(msg[2])}")
+							safePrint(f" X: {str(msg[2])}")
 							safeScroll()
 
-							term.addstr(f" Y: {str(msg[3])}")
+							safePrint(f" Y: {str(msg[3])}")
 							safeScroll()
 
-							term.addstr(f" Z: {str(msg[4])}")
+							safePrint(f" Z: {str(msg[4])}")
 							safeScroll()
 
 						elif (msg[1] == "A"):
 
-							term.addstr(f"Acceleration:")
+							safePrint(f"Acceleration:")
 							safeScroll()
 
-							term.addstr(f" X: {str(msg[2])}")
+							safePrint(f" X: {str(msg[2])}")
 							safeScroll()
 
-							term.addstr(f" Y: {str(msg[3])}")
+							safePrint(f" Y: {str(msg[3])}")
 							safeScroll()
 
-							term.addstr(f" Z: {str(msg[4])}")
+							safePrint(f" Z: {str(msg[4])}")
 							safeScroll()
 
 						elif (msg[1] == "SU"):
@@ -702,17 +867,34 @@ while True:
 
 						elif (msg[1] == "L"):
 
-							term.addstr(f"{msg[2]}")
-							safeScroll()
+							if ((msg[2].split(".")[-1] == "py") or (msg[2].split(".")[-1] == "pyc")):
+
+								safePrint(f"{msg[2]}", curses.color_pair(2))
+								safeScroll()
+
+							elif (msg[2].split(".")[-1] == msg[2]):
+
+								safePrint(f"{msg[2]}", curses.color_pair(3))
+								safeScroll()
+
+							elif (msg[2].split(".")[-1] == "squish"):
+
+								safePrint(f"{msg[2]}", curses.color_pair(1))
+								safeScroll()
+
+							else:
+
+								safePrint(f"{msg[2]}")
+								safeScroll()
 
 						else:
 
-							term.addstr(f"Status: {msg[1]}")
+							safePrint(f"Status: {msg[1]}")
 							safeScroll()
 
 					elif (msg[0] == "E"):
 
-						term.addstr(f"Error: {msg[1]}")
+						safePrint(f"Error: {msg[1]}")
 
 						safeScroll()
 
@@ -739,19 +921,19 @@ while True:
 
 				if ((character * -1) > len(cmd[entry])):
 
-					term.addstr("> " + cmd[entry])
+					safePrint("> " + cmd[entry])
 					term.move(temp_cursor[0], temp_cursor[1])
 
 				else:
 
 					cmd[entry] = cmd[entry][:character] + cmd[entry][character + 1:]
-					term.addstr("> " + cmd[entry])
+					safePrint("> " + cmd[entry])
 					term.move(temp_cursor[0], temp_cursor[1] - 1)
 
 			else:
 
 				cmd[entry] = cmd[entry][:character]
-				term.addstr("> " + cmd[entry])
+				safePrint("> " + cmd[entry])
 
 		except:
 
@@ -780,7 +962,7 @@ while True:
 
 				term.clrtoeol()
 
-				term.addstr("> " + cmd[entry])
+				safePrint("> " + cmd[entry])
 
 				character = -1
 
@@ -804,7 +986,7 @@ while True:
 
 				term.clrtoeol()
 
-				term.addstr("> " + cmd[entry])
+				safePrint("> " + cmd[entry])
 
 				character = -1
 
@@ -866,7 +1048,7 @@ while True:
 
 			term.clrtoeol()
 
-			term.addstr("> " + cmd[entry])
+			safePrint("> " + cmd[entry])
 
 			term.move(temp_cursor[0], temp_cursor[1] + 1)
 
@@ -884,7 +1066,7 @@ while True:
 
 		term.clrtoeol()
 
-		term.addstr("> " + cmd[entry])
+		safePrint("> " + cmd[entry])
 
 curses.endwin()
 

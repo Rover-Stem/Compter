@@ -93,7 +93,15 @@ def evaluate (term, cmd):
 
 			except:
 
-				return "err"
+				try:
+
+					storage.messagesOut.put(f"L,{cmd[1]}")
+
+					return "sent"
+
+				except:
+
+					return "err"
 
 		elif (cmd[0] == "read"):
 
@@ -104,6 +112,10 @@ def evaluate (term, cmd):
 		elif (cmd[0] == "h" or cmd[0] == "help"):
 
 			return "help"
+
+		elif (cmd[0] == "clear"):
+
+			return "clr"
 
 		else:
 
