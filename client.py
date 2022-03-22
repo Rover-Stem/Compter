@@ -34,9 +34,6 @@ class client ():
 
 					pass
 
-		tWait = threading.Thread(target = waitingTerminal.run, args = [], daemon = True)
-		tWait.start()
-
 		while True:
 
 			try:

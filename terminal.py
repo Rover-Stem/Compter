@@ -320,10 +320,6 @@ def printStatusUpdate (statusUpdate):
 
 	safeScroll()
 
-#if os.geteuid() != 0:
-
-#    exit("You need to have root privileges to run this script.\nPlease try again, this time using 'sudo'.\nExiting.")
-
 args = sys.argv[1:]
 testing = False
 hostIn = "raspberrypi.local"

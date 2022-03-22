@@ -6,8 +6,3 @@ messagesOut = queue.Queue(maxsize = 10)
 
 exit = False
 connected = False
-
-devicesIP = []
-devicesARP = []
-devicesDNS = []
-devicesBluetooth = []
