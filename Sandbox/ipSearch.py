@@ -89,9 +89,9 @@ def ipsearch ():
 
 			break
 
-		#with open("logIP.txt", 'a') as f:
+		with open("logIP.txt", 'a') as f:
 
-		#	f.write(f"Starting Search {search}\n\n")
+			f.write(f"Starting Search {search}\n\n")
 
 		toBeSearched = []
 
@@ -99,9 +99,9 @@ def ipsearch ():
 
 			toBeSearched.append(ipaddress.IPv4Network(convertToCIDR(i['addr'], i['netmask']), strict = False))
 
-		#with open("logIP.txt", 'a') as f:
+		with open("logIP.txt", 'a') as f:
 
-		#	f.write(f"Ip Ranges: {toBeSearched}\n\n")
+			f.write(f"Ip Ranges: {toBeSearched}\n\n")
 
 		updated = []
 
@@ -113,9 +113,9 @@ def ipsearch ():
 
 		clean(scrub(updated))
 
-		#with open("logIP.txt", 'a') as f:
+		with open("logIP.txt", 'a') as f:
 
-		#	f.write(f"Updated IP Hosts: {[storage.devicesIP[x][1] for x in range(len(storage.devicesIP))]}\nHost List has a length of {len(storage.devicesIP)}\n\n")
+			f.write(f"Updated IP Hosts: {[storage.devicesIP[x][1] for x in range(len(storage.devicesIP))]}\nHost List has a length of {len(storage.devicesIP)}\n\n")
 
 		search += 1
 

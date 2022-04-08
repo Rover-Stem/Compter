@@ -4,7 +4,6 @@ import curses
 import socket
 import storage
 import threading
-import waitingTerminal
 
 class client ():
 

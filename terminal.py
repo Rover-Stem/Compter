@@ -320,10 +320,30 @@ def printStatusUpdate (statusUpdate):
 
 	safeScroll()
 
+# Loads Commands from cmds.local file
+def loadCommands ():
+
+	with open("cmds.local", 'r') as cmdFile:
+
+		lines = cmdFile.read()
+
+		return lines.split(",")
+
+	return []
+
+# Stores Commands to cmds.local file
+def storeCommands (cmds):
+
+	with open("cmds.local", 'w') as cmdFile:
+
+		for i in cmds:
+
+			cmdFile.write(f", {i}")
+
 args = sys.argv[1:]
 testing = False
 hostIn = "raspberrypi.local"
-portIn = 29500
+portIn = 1234
 packetSizeIn = 1024
 
 for i in args:
@@ -383,7 +403,7 @@ curses.init_pair(3, curses.COLOR_WHITE, curses.COLOR_BLACK)
 
 term.refresh()
 
-cmd = [""]
+cmd = loadCommands() + [""]
 orig = None
 inputActive = False
 entry = -1
@@ -514,7 +534,7 @@ while True:
 					safeScroll()
 					safePrint("  Usage: run ms [ANGLE]")
 					safeScroll()
-					safePrint(" Get Distance: \"gd\": Gets the distance from the ultra sonic servo")
+					safePrint(" Get Distance: \"gd\": Gets the distance from the ultra sonic sensor")
 					safeScroll()
 					safePrint("  Usage: run gd")
 					safeScroll()
@@ -1063,6 +1083,8 @@ while True:
 		term.clrtoeol()
 
 		safePrint("> " + cmd[entry])
+
+storeCommands(cmd)
 
 curses.endwin()
 
