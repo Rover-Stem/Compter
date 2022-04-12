@@ -199,3 +199,490 @@ Responded with: sent
 Added F,./presets/square.squish to outgoing messags
 
 Found args and starting client
+Found args and starting client
+Client Initiallized
+Client Running
+Found args and starting client
+Client Initiallized
+Client Running
+Found args and starting client
+Client Initiallized
+Client Running
+Found args and starting client
+Client Initiallized
+Client Running
+Working with: ls
+Responded with: err
+
+Working with: run m f
+Responded with: sent
+
+Added R,m,f to outgoing messags
+
+Found args and starting client
+Client Initiallized
+Client Running
+Working with: help
+Responded with: help
+
+Working with: ls . RPI
+Responded with: sent
+
+Added L,. to outgoing messags
+
+Added S,L,Files in this directory: to incoming messags
+
+Added S,L,.DS_Store to incoming messags
+
+Added S,L,Testing to incoming messags
+
+Added S,L,__pycache__ to incoming messags
+
+Added S,L,logs to incoming messags
+
+Added S,L,sim to incoming messags
+
+Added S,L,.git to incoming messags
+
+Added S,L,.gitignore to incoming messags
+
+Added S,L,README.md to incoming messags
+
+Added S,L,PCA9685.py to incoming messags
+
+Added S,L,commandSet.py to incoming messags
+
+Added S,L,constantLogger.py to incoming messags
+
+Added S,L,controlLoop.py to incoming messags
+
+Added S,L,presets.py to incoming messags
+
+Added S,L,rover.py to incoming messags
+
+Added S,L,server.py to incoming messags
+
+Added S,L,storage.py to incoming messags
+
+Added S,L,PCA9685.pyc to incoming messags
+
+Added F to incoming messags
+
+Working with: run m f
+Responded with: sent
+
+Added R,m,f to outgoing messags
+
+Added F to incoming messags
+
+Working with: ls . loc
+Responded with: ls
+
+Working with: exit
+Responded with: end
+
+Added stop to outgoing messags
+
+Found args and starting client
+Client Initiallized
+Client Running
+Working with: ls . loc
+Responded with: ls
+
+Working with: run m f
+Responded with: sent
+
+Added R,m,f to outgoing messags
+
+Added F to incoming messags
+
+Working with: run m rr
+Added R,m,rr to outgoing messags
+
+Responded with: sent
+
+Added F to incoming messags
+
+Working with: ls . RPI
+Responded with: sent
+
+Added L,. to outgoing messags
+
+Added S,L,Files in this directory: to incoming messags
+
+Added S,L,.DS_Store to incoming messags
+
+Added S,L,Testing to incoming messags
+
+Added S,L,__pycache__ to incoming messags
+
+Added S,L,logs to incoming messags
+
+Added S,L,sim to incoming messags
+
+Added S,L,.git to incoming messags
+
+Added S,L,.gitignore to incoming messags
+
+Added S,L,README.md to incoming messags
+
+Added S,L,PCA9685.py to incoming messags
+
+Added S,L,commandSet.py to incoming messags
+
+Added S,L,constantLogger.py to incoming messags
+
+Added S,L,controlLoop.py to incoming messags
+
+Added S,L,presets.py to incoming messags
+
+Added S,L,rover.py to incoming messags
+
+Added S,L,server.py to incoming messags
+
+Added S,L,storage.py to incoming messags
+
+Added S,L,PCA9685.pyc to incoming messags
+
+Added F to incoming messags
+
+Working with: exit
+Responded with: end
+
+Added stop to outgoing messags
+
+Found args and starting client
+Client Initiallized
+Client Running
+Working with: ls . loc
+Responded with: ls
+
+Working with: run m f
+Added R,m,f to outgoing messags
+
+Responded with: sent
+
+Added F to incoming messags
+
+Working with: ls . RPI
+Responded with: sent
+
+Added L,. to outgoing messags
+
+Added S,L,Files in this directory: to incoming messags
+
+Added S,L,.DS_Store to incoming messags
+
+Added S,L,Testing to incoming messags
+
+Added S,L,__pycache__ to incoming messags
+
+Added S,L,logs to incoming messags
+
+Added S,L,sim to incoming messags
+
+Added S,L,.git to incoming messags
+
+Added S,L,.gitignore to incoming messags
+
+Added S,L,README.md to incoming messags
+
+Added S,L,PCA9685.py to incoming messags
+
+Added S,L,commandSet.py to incoming messags
+
+Added S,L,constantLogger.py to incoming messags
+
+Added S,L,controlLoop.py to incoming messags
+
+Added S,L,presets.py to incoming messags
+
+Added S,L,rover.py to incoming messags
+
+Added S,L,server.py to incoming messags
+
+Added S,L,storage.py to incoming messags
+
+Added S,L,PCA9685.pyc to incoming messags
+
+Added F to incoming messags
+
+Working with: run m rr
+Responded with: sent
+
+Added R,m,rr to outgoing messags
+
+Added F to incoming messags
+
+Working with: exit
+Added stop to outgoing messags
+
+Responded with: end
+
+Found args and starting client
+Client Initiallized
+Client Running
+Working with: ls . loc
+Responded with: ls
+
+Working with: exit
+Added stop to outgoing messags
+
+Responded with: end
+
+Found args and starting client
+Client Initiallized
+Client Running
+Working with: ls . loc
+Responded with: ls
+
+Working with: ls . RPI
+Responded with: sent
+
+Added L,. to outgoing messags
+
+Added S,L,Files in this directory: to incoming messags
+
+Added S,L,.DS_Store to incoming messags
+
+Added S,L,Testing to incoming messags
+
+Added S,L,__pycache__ to incoming messags
+
+Added S,L,logs to incoming messags
+
+Added S,L,sim to incoming messags
+
+Added S,L,.git to incoming messags
+
+Added S,L,.gitignore to incoming messags
+
+Added S,L,README.md to incoming messags
+
+Added S,L,PCA9685.py to incoming messags
+
+Added S,L,commandSet.py to incoming messags
+
+Added S,L,constantLogger.py to incoming messags
+
+Added S,L,controlLoop.py to incoming messags
+
+Added S,L,presets.py to incoming messags
+
+Added S,L,rover.py to incoming messags
+
+Added S,L,server.py to incoming messags
+
+Added S,L,storage.py to incoming messags
+
+Added S,L,PCA9685.pyc to incoming messags
+
+Added F to incoming messags
+
+Working with: exit
+Responded with: end
+
+Added stop to outgoing messags
+
+Found args and starting client
+Client Initiallized
+Client Running
+Working with: ls . RPI
+Responded with: sent
+
+Added L,. to outgoing messags
+
+Added S,L,Files in this directory: to incoming messags
+
+Added S,L,.DS_Store to incoming messags
+
+Added S,L,Testing to incoming messags
+
+Added S,L,__pycache__ to incoming messags
+
+Added S,L,logs to incoming messags
+
+Added S,L,sim to incoming messags
+
+Added S,L,.git to incoming messags
+
+Added S,L,.gitignore to incoming messags
+
+Added S,L,README.md to incoming messags
+
+Added S,L,PCA9685.py to incoming messags
+
+Added S,L,commandSet.py to incoming messags
+
+Added S,L,constantLogger.py to incoming messags
+
+Added S,L,controlLoop.py to incoming messags
+
+Added S,L,presets.py to incoming messags
+
+Added S,L,rover.py to incoming messags
+
+Added S,L,server.py to incoming messags
+
+Added S,L,storage.py to incoming messags
+
+Added S,L,PCA9685.pyc to incoming messags
+
+Added F to incoming messags
+
+Working with: run m rr
+Responded with: sent
+
+Added R,m,rr to outgoing messags
+
+Added F to incoming messags
+
+Working with: exit
+Responded with: end
+
+Added stop to outgoing messags
+
+Found args and starting client
+Client Initiallized
+Client Running
+Working with: 
+Responded with: err
+
+Working with: ls . loc
+Responded with: ls
+
+Working with: exit
+Added stop to outgoing messags
+
+Responded with: end
+
+Found args and starting client
+Found args and starting client
+Client Initiallized
+Client Running
+Working with: clear
+Responded with: clr
+
+Working with: run m f
+Added R,m,f to outgoing messags
+
+Responded with: sent
+
+Added F to incoming messags
+
+Working with: ls . RPI
+Responded with: sent
+
+Added L,. to outgoing messags
+
+Added S,L,Files in this directory: to incoming messags
+
+Added S,L,.DS_Store to incoming messags
+
+Added S,L,Testing to incoming messags
+
+Added S,L,__pycache__ to incoming messags
+
+Added S,L,logs to incoming messags
+
+Added S,L,sim to incoming messags
+
+Added S,L,.git to incoming messags
+
+Added S,L,.gitignore to incoming messags
+
+Added S,L,README.md to incoming messags
+
+Added S,L,PCA9685.py to incoming messags
+
+Added S,L,commandSet.py to incoming messags
+
+Added S,L,constantLogger.py to incoming messags
+
+Added S,L,controlLoop.py to incoming messags
+
+Added S,L,presets.py to incoming messags
+
+Added S,L,rover.py to incoming messags
+
+Added S,L,server.py to incoming messags
+
+Added S,L,storage.py to incoming messags
+
+Added S,L,PCA9685.pyc to incoming messags
+
+Added F to incoming messags
+
+Working with: exit
+Responded with: end
+
+Added stop to outgoing messags
+
+Found args and starting client
+Client Initiallized
+Client Running
+Working with: exit
+Responded with: end
+
+Added stop to outgoing messags
+
+Found args and starting client
+Client Initiallized
+Client Running
+Found args and starting client
+Client Initiallized
+Client Running
+Found args and starting client
+Client Initiallized
+Client Running
+Found args and starting client
+Client Initiallized
+Client Running
+Working with: ls . RPI
+Responded with: sent
+
+Added L,. to outgoing messags
+
+Added S,L,.DS_Store to incoming messags
+
+Added S,L,Testing to incoming messags
+
+Added S,L,sim to incoming messags
+
+Added S,L,.gitignore to incoming messags
+
+Added S,L,README.md to incoming messags
+
+Added S,L,PCA9685.py to incoming messags
+
+Added S,L,commandSet.py to incoming messags
+
+Added S,L,constantLogger.py to incoming messags
+
+Added S,L,controlLoop.py to incoming messags
+
+Added S,L,presets.py to incoming messags
+
+Added S,L,rover.py to incoming messags
+
+Added S,L,server.py to incoming messags
+
+Added S,L,storage.py to incoming messags
+
+Added S,L,PCA9685.pyc to incoming messags
+
+Added F to incoming messags
+
+Working with: exit
+Responded with: end
+
+Added stop to outgoing messags
+
+Found args and starting client
+Client Initiallized
+Client Running
+Working with: exit
+Responded with: end
+
+Added stop to outgoing messags
+

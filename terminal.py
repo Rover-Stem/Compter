@@ -323,34 +323,45 @@ def printStatusUpdate (statusUpdate):
 # Loads Commands from cmds.local file
 def loadCommands ():
 
-	with open("cmds.local", 'r') as cmdFile:
+	with open("cmds.local", 'a+') as cmdFile:
 
 		lines = cmdFile.read()
 
-		return lines.split(",")
+		linesSplit = lines.split(",")
+
+		return linesSplit
 
 	return []
 
 # Stores Commands to cmds.local file
 def storeCommands (cmds):
 
-	with open("cmds.local", 'w') as cmdFile:
+	with open("cmds.local", 'a') as cmdFile:
 
 		for i in cmds:
 
-			cmdFile.write(f", {i}")
+			if not(i == ""):
+
+				cmdFile.write(f",{i}")
 
 args = sys.argv[1:]
 testing = False
+logging = False
 hostIn = "raspberrypi.local"
 portIn = 1234
 packetSizeIn = 1024
 
 for i in args:
 
-	if (("-" in i) and ("t" in i)):
+	if (("-" in i) and (("t" in i) or ("l" in i))):
 
-		testing = True
+		if ("t" in i):
+
+			testing = True
+
+		if ("l" in i):
+
+			logging = True
 
 	if ("host" in i.lower()):
 
@@ -408,6 +419,15 @@ orig = None
 inputActive = False
 entry = -1
 character = -1
+
+if (logging and not(testing)):
+
+	storage.messagesOut.put(f"S")
+
+elif (logging and testing):
+
+	safePrint("Logging Was Not Enabled: Cannot Log In Testing Mode", curses.color_pair(2))
+	safeScroll()
 
 if (testing):
 
@@ -474,7 +494,7 @@ while True:
 
 		elif (rsp == "err"):
 
-			safePrint(f"Not valid: {cmd[entry]}")
+			safePrint(f"Not valid: \"{cmd[entry]}\"")
 			safeScroll()
 			safePrint("> ")
 
@@ -885,7 +905,7 @@ while True:
 
 							if ((msg[2].split(".")[-1] == "py") or (msg[2].split(".")[-1] == "pyc")):
 
-								safePrint(f"{msg[2]}", curses.color_pair(2))
+								safePrint(f"{msg[2]}", curses.color_pair(1))
 								safeScroll()
 
 							elif (msg[2].split(".")[-1] == msg[2]):
@@ -895,7 +915,7 @@ while True:
 
 							elif (msg[2].split(".")[-1] == "squish"):
 
-								safePrint(f"{msg[2]}", curses.color_pair(1))
+								safePrint(f"{msg[2]}", curses.color_pair(2))
 								safeScroll()
 
 							else:

@@ -117,6 +117,10 @@ def evaluate (term, cmd):
 
 			return "clr"
 
+		elif (cmd[0] == "start" and cmd[1] == "logs"):
+
+			return "log"
+
 		else:
 
 			return "err"
