@@ -11,7 +11,7 @@ class client ():
 
 		self.__host = host
 		self.__port = port
-		self.__sockt = None
+		self.__sockt = socket.socket()
 		self.__testing = testing
 		self.__outgoing = queue.Queue(maxsize = 10)
 		self.__incoming = queue.Queue(maxsize = 50)
@@ -21,24 +21,12 @@ class client ():
 
 			self.__host = "127.0.0.1"
 
-		else:
-
-			while True:
-
-				try:
-
-					self.__host = socket.gethostbyname(host)
-
-				except:
-
-					pass
-
 		while True:
 
 			try:
 
 				self.__sockt = socket.socket()
-				self.__sockt.connect((self.__host, self.__port))
+				self.__sockt.connect((socket.gethostbyname(self.__host), self.__port))
 
 				storage.connected = True
 
