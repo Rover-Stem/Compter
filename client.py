@@ -1,6 +1,5 @@
 import time
 import queue
-import curses
 import socket
 import storage
 import threading

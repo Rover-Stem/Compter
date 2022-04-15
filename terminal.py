@@ -284,7 +284,7 @@ def printStatusUpdate (statusUpdate):
 
 	safeScroll()
 
-	safePrint("Ultrasonic Sensor: ")
+	safePrint("Time of Flight Sensor: ")
 
 	if (statusUpdate[6][1]):
 
@@ -503,6 +503,11 @@ while True:
 			term.clear()
 			safePrint("> ")
 
+		elif (rsp == "log" and not(logging)):
+
+			storage.messagesOut.put("S")
+			logging = True
+
 		elif (rsp == "help"):
 
 			input = cmd[entry]
@@ -550,17 +555,21 @@ while True:
 					safeScroll()
 					safePrint("  Usage: run md [DISTANCE] [CM]")
 					safeScroll()
+					safePrint(" Move To Angle: \"ma\": Moves rover to a certain angle")
+					safeScroll()
+					safePrint("  Usage: run ma [ANGLE] [RADS]")
+					safeScroll()
 					safePrint(" Move Servo: \"ms\": Moves the servo to percent of range of motion")
 					safeScroll()
 					safePrint("  Usage: run ms [ANGLE]")
 					safeScroll()
-					safePrint(" Get Distance: \"gd\": Gets the distance from the ultra sonic sensor")
+					safePrint(" Get Distance: \"gd\": Gets the distance from the time of flight sensor")
 					safeScroll()
 					safePrint("  Usage: run gd")
 					safeScroll()
-					safePrint(" Get Average Distance: \"gad\": Gets the distance from the ultra sonic servo over multiple readings and averages them")
+					safePrint(" Get Average Distance: \"gad\": Gets the distance from the time of flight sensor over multiple readings and averages them")
 					safeScroll()
-					safePrint("  Usage: run gad [TIME BETWEEN PULSES] [NUMBER OF PULSES]")
+					safePrint("  Usage: run gad [NUMBER OF MEASUREMENTS]")
 					safeScroll()
 					safePrint(" Get Magnetometer: \"gm\": Gets the magnetometer reading")
 					safeScroll()
@@ -570,13 +579,55 @@ while True:
 					safeScroll()
 					safePrint("  Usage: run ga")
 					safeScroll()
-					safePrint(" Get Direction: \"gdir\": Gets the direction from the magnetometer in degrees")
+					safePrint(" Get Direction: \"gdir\": Gets the direction from the magnetometer reading")
 					safeScroll()
-					safePrint("  Usage: run gdir")
+					safePrint("  Usage: run gdir [NEGATIVES] [RADS]")
 					safeScroll()
 					safePrint(" Take Picture: \"tp\": Takes picture and sends it to the host computer")
 					safeScroll()
 					safePrint("  Usage: run tp")
+					safeScroll()
+
+					safePrint("> ")
+
+				elif (command[1] == "preset"):
+
+					safePrint("Preset:")
+					safeScroll()
+					safePrint("Usage: run preset OPTION [args]")
+					safeScroll()
+
+					safePrint(" Square: \"square\": Moves the rover in a square")
+					safeScroll()
+					safePrint("  Usage: run preset square")
+					safeScroll()
+					safePrint(" Distance Challange: \"distanceChallenge\": Moves the rover to the given distance")
+					safeScroll()
+					safePrint("  Usage: run preset distanceChallenge [DISTANCE]")
+					safeScroll()
+					safePrint(" Direction Challange: \"directionChallenge\": Moves the rover to a certain angle before moving forwards")
+					safeScroll()
+					safePrint("  Usage: run preset directionChallenge [ANGLE] [RADS]")
+					safeScroll()
+					safePrint(" Obstacle Avoidance 1 (Stopping): \"obstacleAvoidance1\": Moves the rover and then stops the rover when an object is detected")
+					safeScroll()
+					safePrint("  Usage: run preset obstacleAvoidance1")
+					safeScroll()
+					safePrint(" Obstacle Avoidance 2 (Moving Around): \"obstacleAvoidance2\": Moves the rover and goes around an obstacle when detected")
+					safeScroll()
+					safePrint("  Usage: run preset obstacleAvoidance2 [NUMBER OF OBSTACLES]")
+					safeScroll()
+					safePrint(" Parallel Parking: \"parallelParking\": Parallel parks the rover")
+					safeScroll()
+					safePrint("  Usage: run preset parallelParking [LEFT]")
+					safeScroll()
+					safePrint(" Stay In Your Lane: \"stayInYourLane\": Moves the rover and keeps it within detected lines")
+					safeScroll()
+					safePrint("  Usage: run preset stayInYourLane")
+					safeScroll()
+					safePrint(" Navigate The Neighborhood: \"navNeighborhood\": Moves the rover through a neighborhood with binary coded intersections")
+					safeScroll()
+					safePrint("  Usage: run preset navNeighborhood")
 					safeScroll()
 
 					safePrint("> ")
@@ -594,7 +645,11 @@ while True:
 
 				elif (command[1] == "ANGLE"):
 
-					safePrint("Desired angle as a percent of the movement - Must be a number between -1 and 1 (Non-Inclusive)")
+					safePrint("Desired angle as a percent of the movement for servo - Must be a number between -1 and 1 (Non-Inclusive)")
+					safeScroll()
+					safePrint("OR")
+					safeScroll()
+					safePrint("Desired angle in radians or degrees")
 					safeScroll()
 
 					safePrint("> ")
@@ -616,6 +671,27 @@ while True:
 				elif (command[1] == "CM"):
 
 					safePrint("Set to True if distance is in centimeters")
+					safeScroll()
+
+					safePrint("> ")
+
+				elif (command[1] == "RADS"):
+
+					safePrint("Set to True if direction in radians is desired")
+					safeScroll()
+
+					safePrint("> ")
+
+				elif (command[1] == "LEFT"):
+
+					safePrint("Set to True if parallel parking is on the left")
+					safeScroll()
+
+					safePrint("> ")
+
+				elif (command[1] == "NEGATIVES"):
+
+					safePrint("Set to True if direction with negatives is acceptable")
 					safeScroll()
 
 					safePrint("> ")
@@ -696,6 +772,8 @@ while True:
 				safePrint(" Read: \"read\": Used for reading images and displaying them in ASCII or as the standard image")
 				safeScroll()
 				safePrint(" Run: \"run\": Runs command on the rover valid for all options but list")
+				safeScroll()
+				safePrint(" Start Logging: \"start logs\": Starts logging on the rover")
 				safeScroll()
 				safePrint(" Clear: \"clear\": Clears terminal")
 				safeScroll()

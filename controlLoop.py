@@ -15,35 +15,9 @@ def evaluate (term, cmd):
 
 		if (cmd[0] == "run"):
 
-			if (cmd[1] == "file"):
+			if (cmd[1] == "preset"):
 
-				if (cmd[2] == "l"):
-
-					storage.messagesOut.put("F,l")
-
-				elif (cmd[2] == "s"):
-
-					cmdSet = []
-
-					with open(cmd[2], 'r') as f:
-
-						cmdSet = f.read().split("\n")
-
-					for i in range(0, len(cmdSet)):
-
-						cmdSet[i] = cmdSet[i].split(" ")
-
-					cmdSet = scrub(cmdSet)
-
-					storage.messagesOut.put("F,s")
-
-					for i in cmdSet:
-
-						storage.messagesOut.put(i)
-
-				else:
-
-					storage.messagesOut.put(f"F,{cmd[2]}")
+				storage.messagesOut.put(f"P,{cmd[2]}")
 
 			else:
 
