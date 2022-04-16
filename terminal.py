@@ -507,6 +507,7 @@ while True:
 
 			storage.messagesOut.put("S")
 			logging = True
+			safePrint("> ")
 
 		elif (rsp == "help"):
 

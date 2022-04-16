@@ -17,7 +17,13 @@ def evaluate (term, cmd):
 
 			if (cmd[1] == "preset"):
 
-				storage.messagesOut.put(f"P,{cmd[2]}")
+				args = ''
+
+				for i in range(3, len(cmd)):
+
+					args += "," + cmd[i]
+
+				storage.messagesOut.put(f"P,{cmd[2]}" + args)
 
 			else:
 
