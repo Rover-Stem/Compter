@@ -506,3 +506,356 @@ Added F to incoming messags
 
 Added F to incoming messags
 
+Working with: exit
+Responded with: end
+
+Added stop to outgoing messags
+
+Found args and starting client
+Client Initiallized
+Client Running
+Added S,SU,M:True:False,C:True:True,A:True:False,S:True:True,T:True:False to incoming messags
+
+Working with: run preset square 0.25
+Responded with: sent
+
+Added P,square,0.25 to outgoing messags
+
+Added F to incoming messags
+
+Added F to incoming messags
+
+Working with: run preset square 0.25
+Added P,square,0.25 to outgoing messags
+
+Responded with: sent
+
+Added F to incoming messags
+
+Added F to incoming messags
+
+Working with: exit
+Responded with: end
+
+Added stop to outgoing messags
+
+Found args and starting client
+Client Initiallized
+Client Running
+Added S,SU,M:True:False,C:True:True,A:True:False,S:True:True,T:True:False to incoming messags
+
+Working with: start logs
+Responded with: log
+
+Added S to outgoing messags
+
+Working with: run preset square 0.5
+Responded with: sent
+
+Added P,square,0.5 to outgoing messags
+
+Found args and starting client
+Client Initiallized
+Client Running
+Added S,SU,M:True:False,C:True:True,A:True:False,S:True:True,T:True:False to incoming messags
+
+Working with: start logs
+Responded with: log
+
+Added S to outgoing messags
+
+Working with: run preset square 0.5
+Responded with: sent
+
+Added P,square,0.5 to outgoing messags
+
+Found args and starting client
+Client Initiallized
+Client Running
+Added S,SU,M:True:False,C:True:True,A:True:False,S:True:True,T:True:False to incoming messags
+
+Working with: start log
+Responded with: err
+
+Working with: start logs
+Responded with: log
+
+Added S to outgoing messags
+
+Working with: run preset square 0.5
+Responded with: sent
+
+Added P,square,0.5 to outgoing messags
+
+Added F to incoming messags
+
+Added F to incoming messags
+
+Working with: exit
+Added stop to outgoing messags
+
+Responded with: end
+
+Found args and starting client
+Client Initiallized
+Client Running
+Added S,SU,M:True:False,C:True:True,A:True:False,S:True:True,T:True:False to incoming messags
+
+Working with: run preset getDirectionLoop
+Responded with: sent
+
+Added P,getdirectionloop to outgoing messags
+
+Added E,getdirectionloop not in presets to incoming messags
+
+Added F to incoming messags
+
+Working with: exit
+Responded with: end
+
+Added stop to outgoing messags
+
+Found args and starting client
+Client Initiallized
+Client Running
+Added S,SU,M:True:False,C:True:True,A:True:False,S:True:True,T:True:False to incoming messags
+
+Working with: run preset getDirectionLoop
+Responded with: sent
+
+Added P,getdirectionloop to outgoing messags
+
+Added F to incoming messags
+
+Added F to incoming messags
+
+Working with: run preset getDirectionLoop
+Responded with: sent
+
+Added P,getdirectionloop to outgoing messags
+
+Added F to incoming messags
+
+Added F to incoming messags
+
+Working with: exit
+Added stop to outgoing messags
+
+Responded with: end
+
+Found args and starting client
+Client Initiallized
+Client Running
+Added S,SU,M:True:False,C:True:True,A:True:False,S:True:True,T:True:False to incoming messags
+
+Working with: start logs
+Responded with: log
+
+Added S to outgoing messags
+
+Working with: run preset square 0.5
+Responded with: sent
+
+Added P,square,0.5 to outgoing messags
+
+Added F to incoming messags
+
+Added F to incoming messags
+
+Working with: exit
+Responded with: end
+
+Added stop to outgoing messags
+
+Found args and starting client
+Client Initiallized
+Client Running
+Added S,SU,M:True:False,C:True:True,A:True:False,S:True:True,T:True:False to incoming messags
+
+Working with: exit
+Responded with: end
+
+Added stop to outgoing messags
+
+Found args and starting client
+Client Initiallized
+Client Running
+Added S,SU,M:True:False,C:True:True,A:True:False,S:True:True,T:True:False to incoming messags
+
+Working with: exit
+Added stop to outgoing messags
+
+Responded with: end
+
+Found args and starting client
+Client Initiallized
+Client Running
+Added S,SU,M:True:False,C:True:True,A:True:False,S:True:False,T:True:False to incoming messags
+
+Working with: ms -90
+Responded with: err
+
+Working with: exit
+Responded with: end
+
+Added stop to outgoing messags
+
+Found args and starting client
+Client Initiallized
+Client Running
+Added S,SU,M:True:False,C:True:True,A:True:False,S:True:False,T:True:False to incoming messags
+
+Working with: run ms -1
+Responded with: sent
+
+Added R,ms,-1 to outgoing messags
+
+Added E,Angle Must Be Provided to incoming messags
+
+Added E,Servo value must be between -1 and 1, or NoneF to incoming messags
+
+Found args and starting client
+Client Initiallized
+Client Running
+Added S,SU,M:True:False,C:True:True,A:True:False,S:True:False,T:True:False to incoming messags
+
+Working with: run ms 0.5
+Responded with: sent
+
+Added R,ms,0.5 to outgoing messags
+
+Added E,Angle Must Be Provided to incoming messags
+
+Added E,Servo value must be between -1 and 1, or NoneF to incoming messags
+
+Found args and starting client
+Found args and starting client
+Found args and starting client
+Client Initiallized
+Client Running
+Added S,SU,M:True:False,C:True:False,A:True:False,S:True:False,T:True:False to incoming messags
+
+Working with: start logs
+Responded with: log
+
+Added S to outgoing messags
+
+Working with: run m f
+Added R,m,f to outgoing messags
+
+Responded with: sent
+
+Added F to incoming messags
+
+Working with: run m b
+Responded with: sent
+
+Added R,m,b to outgoing messags
+
+Added F to incoming messags
+
+Working with: run m rr
+Responded with: sent
+
+Added R,m,rr to outgoing messags
+
+Added F to incoming messags
+
+Working with: run m rl
+Responded with: sent
+
+Added R,m,rl to outgoing messags
+
+Added F to incoming messags
+
+Working with: exit
+Added stop to outgoing messags
+
+Responded with: end
+
+Found args and starting client
+Client Initiallized
+Client Running
+Added S,SU,M:True:False,C:True:False,A:True:False,S:True:False,T:True:False to incoming messags
+
+Working with: start logs
+Responded with: log
+
+Added S to outgoing messags
+
+Working with: run m f
+Responded with: sent
+
+Added R,m,f to outgoing messags
+
+Added F to incoming messags
+
+Working with: run m b
+Responded with: sent
+
+Added R,m,b to outgoing messags
+
+Added F to incoming messags
+
+Working with: run m rr
+Responded with: sent
+
+Added R,m,rr to outgoing messags
+
+Added F to incoming messags
+
+Working with: run m rl
+Responded with: sent
+
+Added R,m,rl to outgoing messags
+
+Added F to incoming messags
+
+Working with: exit
+Responded with: end
+
+Added stop to outgoing messags
+
+Found args and starting client
+Client Initiallized
+Client Running
+Added S,SU,M:True:False,C:True:False,A:True:False,S:True:False,T:True:False to incoming messags
+
+Working with: start logs
+Responded with: log
+
+Added S to outgoing messags
+
+Working with: run m f
+Added R,m,f to outgoing messags
+
+Responded with: sent
+
+Added F to incoming messags
+
+Working with: run m b
+Responded with: sent
+
+Added R,m,b to outgoing messags
+
+Added F to incoming messags
+
+Working with: run m rr
+Added R,m,rr to outgoing messags
+
+Responded with: sent
+
+Added F to incoming messags
+
+Working with: run m rl
+Responded with: sent
+
+Added R,m,rl to outgoing messags
+
+Added F to incoming messags
+
+Working with: exit
+Responded with: end
+
+Added stop to outgoing messags
+

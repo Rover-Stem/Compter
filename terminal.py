@@ -582,7 +582,7 @@ while True:
 					safeScroll()
 					safePrint(" Get Direction: \"gdir\": Gets the direction from the magnetometer reading")
 					safeScroll()
-					safePrint("  Usage: run gdir [NEGATIVES] [RADS]")
+					safePrint("  Usage: run gdir [RADS]")
 					safeScroll()
 					safePrint(" Take Picture: \"tp\": Takes picture and sends it to the host computer")
 					safeScroll()
@@ -686,13 +686,6 @@ while True:
 				elif (command[1] == "LEFT"):
 
 					safePrint("Set to True if parallel parking is on the left")
-					safeScroll()
-
-					safePrint("> ")
-
-				elif (command[1] == "NEGATIVES"):
-
-					safePrint("Set to True if direction with negatives is acceptable")
 					safeScroll()
 
 					safePrint("> ")
