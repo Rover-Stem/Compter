@@ -65,33 +65,15 @@ class client ():
 
 			if data:
 
-				if (str(data, 'utf-8') == "file"):
-
-					filename = str(conn.recv(self.__packetSize), 'utf-8')
-
-					with open(f"./images/{filename}", "wb") as f:
-
-						while True:
-
-							bytes_read = client_socket.recv(self.__packetSize)
-
-							if not bytes_read:
-
-								break
-
-							f.write(bytes_read)
-
-					storage.messagesIn.put(f"S,File {filename} Recieved")
-
-				else:
+				for i in str(data, 'utf-8').split(",:f\5~"):
 
 					with open("log.txt", 'a') as f:
 
-						f.write(f"Added {str(data, 'utf-8')} to incoming messags\n\n")
+						f.write(f"Added {i} to incoming messags\n\n")
 
-					storage.messagesIn.put(str(data, 'utf-8'))
+					storage.messagesIn.put(i)
 
-					if (str(data, 'utf-8') == "stop"):
+					if (i == "stop"):
 
 						self.cleanUp()
 
@@ -119,7 +101,7 @@ class client ():
 
 					f.write(f"Added {str(msg, 'utf-8')} to outgoing messags\n\n")
 
-				conn.send(msg)
+				conn.send(bytes(str(msg, 'utf-8') + ",:f\5~", 'utf-8'))
 
 				if (str(msg, 'utf-8') == "stop"):
 

@@ -323,11 +323,15 @@ def printStatusUpdate (statusUpdate):
 # Loads Commands from cmds.local file
 def loadCommands ():
 
-	with open("cmds.local", 'a+') as cmdFile:
+	with open("cmds.local", 'r') as cmdFile:
 
 		lines = cmdFile.read()
 
 		linesSplit = lines.split(",")
+
+		with open("log.txt", 'a') as f:
+
+			f.write(f"Previous Commands: {linesSplit}\n\n")
 
 		return linesSplit
 
@@ -1014,6 +1018,7 @@ while True:
 
 		cmd.append("")
 		entry = -1
+		character = -1
 
 	elif (c == 8 or c == 127):
 
@@ -1146,6 +1151,14 @@ while True:
 
 			cmd[entry] = cmd[entry] + chr(c)
 
+			temp_cursor = term.getyx()
+
+			term.move(temp_cursor[0], 0)
+
+			term.clrtoeol()
+
+			safePrint("> " + cmd[entry])
+
 		elif ((character * -1) > len(cmd[entry])):
 
 			cmd[entry] = chr(c) + cmd[entry]
@@ -1166,15 +1179,19 @@ while True:
 
 		else:
 
+			temp_cursor = term.getyx()
+
 			cmd[entry] = cmd[entry][:character + 1] + chr(c) + cmd[entry][character + 1:]
 
-		temp_cursor = term.getyx()
+			term.move(temp_cursor[0], 0)
 
-		term.move(temp_cursor[0], 0)
+			term.clrtoeol()
 
-		term.clrtoeol()
+			safePrint("> " + cmd[entry])
 
-		safePrint("> " + cmd[entry])
+			term.move(temp_cursor[0], temp_cursor[1] + 1)
+
+			continue
 
 storeCommands(cmd)
 
