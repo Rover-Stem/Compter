@@ -592,6 +592,14 @@ while True:
 					safeScroll()
 					safePrint("  Usage: run tp")
 					safeScroll()
+					safePrint(" Run Preset: \"preset\": Runs preset")
+					safeScroll()
+					safePrint("  Usage: run preset [OPTION]")
+					safeScroll()
+					safePrint(" Run Live: \"live\": Runs live control")
+					safeScroll()
+					safePrint("  Usage: run live")
+					safeScroll()
 
 					safePrint("> ")
 
@@ -906,7 +914,7 @@ while True:
 
 					elif (msg[0] == "I"):
 
-						safePrint(msg[1])
+						safePrint(" > ")
 						inputActive = True
 
 						break

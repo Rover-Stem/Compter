@@ -25,6 +25,10 @@ def evaluate (term, cmd):
 
 				storage.messagesOut.put(f"P,{cmd[2]}" + args)
 
+			elif (cmd[1] == "live"):
+
+				storage.messagesOut.put("I")
+
 			else:
 
 				args = ""
