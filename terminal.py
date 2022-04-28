@@ -333,6 +333,8 @@ def loadCommands ():
 
 			f.write(f"Previous Commands: {linesSplit}\n\n")
 
+		cmdNums = len(linesSplit)
+
 		return linesSplit
 
 	return []
@@ -342,11 +344,22 @@ def storeCommands (cmds):
 
 	with open("cmds.local", 'a') as cmdFile:
 
-		for i in cmds:
+		cmdFile.truncate(0)
 
-			if not(i == ""):
+		for i in range(len(cmds)):
 
-				cmdFile.write(f",{i}")
+			if (i < (cmdNums - 1)):
+
+				continue
+
+			if not(cmds[i] == ""):
+
+				cmdFile.write(f",{cmds[i]}")
+
+with open("log.txt", 'a') as f:
+
+	f.truncate(0)
+	f.close()
 
 args = sys.argv[1:]
 testing = False
@@ -419,6 +432,7 @@ curses.init_pair(3, curses.COLOR_WHITE, curses.COLOR_BLACK)
 term.refresh()
 
 cmd = loadCommands() + [""]
+cmdNums = 0
 orig = None
 inputActive = False
 entry = -1
